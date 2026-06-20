@@ -1,0 +1,56 @@
+import logging
+import sys
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+
+from app.core.config import settings
+from app.api.v1.api import api_router
+from app.api.v1.endpoints.health import health_check
+from app.middleware.error_handler import ErrorHandlingMiddleware
+from app.core.database import engine, Base
+from app.models import User, UserMemory, Trip
+
+# Automatically create database tables for convenience/health-check testing
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    # Log but do not block app startup if DB is offline (let health check catch it)
+    print(f"Database table creation skipped/failed: {str(e)}")
+
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger("app.main")
+
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+)
+
+# Set all CORS enabled origins
+if settings.BACKEND_CORS_ORIGINS:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.BACKEND_CORS_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+# Add custom global error handling middleware
+app.add_middleware(ErrorHandlingMiddleware)
+
+# Include versioned API router
+app.include_router(api_router, prefix=settings.API_V1_STR)
+
+# Direct /health endpoint for docker-compose healthchecks / convenience
+@app.get("/health", tags=["health"])
+def direct_health(db: Session = Depends(health_check)):
+    return db

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroGuide - Trip Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eeedf3",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#2b1700",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#930016",
+                        "on-primary-fixed": "#001a41",
+                        "on-surface": "#1a1b1f",
+                        "secondary": "#885200",
+                        "primary": "#0058bc",
+                        "inverse-on-surface": "#f1f0f5",
+                        "tertiary": "#b31e28",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dad9df",
+                        "outline": "#717786",
+                        "surface-tint": "#005bc1",
+                        "on-tertiary-fixed": "#410005",
+                        "on-primary-container": "#fefcff",
+                        "surface-variant": "#e3e2e7",
+                        "background": "#faf9fe",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-surface": "#2f3034",
+                        "secondary-fixed-dim": "#ffb868",
+                        "surface-bright": "#faf9fe",
+                        "surface-container-highest": "#e3e2e7",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-secondary-container": "#653c00",
+                        "primary-container": "#0070eb",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface-variant": "#414755",
+                        "on-background": "#1a1b1f",
+                        "secondary-container": "#fd9d06",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container-high": "#e9e7ed",
+                        "secondary-fixed": "#ffddbb",
+                        "outline-variant": "#c1c6d7",
+                        "tertiary-container": "#d6393d",
+                        "surface": "#faf9fe",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Outfit"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Outfit"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-transition {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .step-hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        .step-active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- Header (Simplified for Onboarding Flow) -->
+<header class="w-full bg-surface/85 backdrop-blur-xl border-b border-surface-variant sticky top-0 z-50 py-4">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+                AeroGuide
+            </div>
+<button class="text-on-surface-variant hover:text-primary transition-colors text-body-sm font-body-sm">Cancel</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto relative overflow-hidden">
+<!-- Progress Indicator -->
+<div class="w-full max-w-2xl mb-12 flex justify-between items-center relative">
+<div class="absolute top-1/2 left-0 w-full h-1 bg-surface-variant -z-10 rounded-full transform -translate-y-1/2"></div>
+<div class="absolute top-1/2 left-0 w-1/4 h-1 bg-primary -z-10 rounded-full transform -translate-y-1/2 transition-all duration-500 ease-out" id="progress-bar"></div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md shadow-sm" id="step1-indicator">1</div>
+<span class="font-label-md text-label-md text-primary">Destination</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md transition-colors duration-300" id="step2-indicator">2</div>
+<span class="font-label-md text-label-md text-on-surface-variant transition-colors duration-300" id="step2-label">Dates</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md transition-colors duration-300" id="step3-indicator">3</div>
+<span class="font-label-md text-label-md text-on-surface-variant transition-colors duration-300" id="step3-label">Vibe</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md transition-colors duration-300" id="step4-indicator">4</div>
+<span class="font-label-md text-label-md text-on-surface-variant transition-colors duration-300" id="step4-label">Magic</span>
+</div>
+</div>
+<div class="w-full max-w-2xl relative min-h-[400px]">
+<!-- Step 1: Destination -->
+<div class="step-transition step-active w-full bg-surface rounded-xl shadow-sm p-8 md:p-12" id="step1">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">Where to?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Tell us your dream destination, or let our AI suggest one.</p>
+<div class="relative w-full mb-8">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-container border-none focus:ring-2 focus:ring-primary focus:bg-surface transition-colors font-body-md text-body-md text-on-surface placeholder-outline-variant shadow-sm" id="destination-input" placeholder="e.g. Kyoto, Japan or 'Somewhere warm'" type="text"/>
+<button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-primary hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">magic_button</span>
+</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<button class="py-2 px-4 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors">Tokyo</button>
+<button class="py-2 px-4 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors">Paris</button>
+<button class="py-2 px-4 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors">Bali</button>
+<button class="py-2 px-4 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors">New York</button>
+</div>
+<div class="flex justify-end">
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-3 px-8 rounded-lg shadow-sm transition-colors flex items-center gap-2" onclick="nextStep(2)">
+                        Next
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Dates -->
+<div class="step-transition step-hidden w-full bg-surface rounded-xl shadow-sm p-8 md:p-12" id="step2">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">When are you going?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Select your travel dates, or choose a rough timeline.</p>
+<div class="flex flex-col md:flex-row gap-4 mb-8">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">calendar_month</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-container border-none focus:ring-2 focus:ring-primary focus:bg-surface transition-colors font-body-md text-body-md text-on-surface placeholder-outline-variant shadow-sm" onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="Start Date" type="text"/>
+</div>
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-outline">event</span>
+<input class="w-full pl-12 pr-4 py-4 rounded-xl bg-surface-container border-none focus:ring-2 focus:ring-primary focus:bg-surface transition-colors font-body-md text-body-md text-on-surface placeholder-outline-variant shadow-sm" onblur="(this.type='text')" onfocus="(this.type='date')" placeholder="End Date" type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="h-px bg-surface-variant flex-grow"></div>
+<span class="font-label-md text-label-md text-outline">OR</span>
+<div class="h-px bg-surface-variant flex-grow"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+<button class="py-3 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors flex flex-col items-center gap-1">
+<span class="material-symbols-outlined">wb_sunny</span>
+                        Summer
+                    </button>
+<button class="py-3 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors flex flex-col items-center gap-1">
+<span class="material-symbols-outlined">ac_unit</span>
+                        Winter
+                    </button>
+<button class="py-3 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors flex flex-col items-center gap-1">
+<span class="material-symbols-outlined">event_upcoming</span>
+                        Any Weekend
+                    </button>
+<button class="py-3 px-4 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md border border-surface-variant transition-colors flex flex-col items-center gap-1">
+<span class="material-symbols-outlined">magic_button</span>
+                        Decide for me
+                    </button>
+</div>
+<div class="flex justify-between mt-auto">
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md py-3 px-6 rounded-lg transition-colors flex items-center gap-2" onclick="prevStep(1)">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                        Back
+                    </button>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-3 px-8 rounded-lg shadow-sm transition-colors flex items-center gap-2" onclick="nextStep(3)">
+                        Next
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 3: Vibe -->
+<div class="step-transition step-hidden w-full bg-surface rounded-xl shadow-sm p-8 md:p-12" id="step3">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">What's the vibe?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">Select interests to help our AI craft your perfect itinerary.</p>
+<div class="flex flex-wrap gap-3 mb-8">
+<!-- Chip Selection UI -->
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Culture &amp; History</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Food &amp; Dining</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Nature &amp; Outdoors</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Relaxation</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Adventure</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Nightlife</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Shopping</button>
+<button class="interest-chip py-2 px-4 rounded-full bg-surface-container-low text-on-surface-variant border border-surface-variant font-label-md text-label-md transition-all hover:bg-surface-container" onclick="toggleChip(this)">Art &amp; Museums</button>
+</div>
+<div class="mb-8">
+<label class="font-headline-sm text-headline-sm text-on-surface block mb-4">Budget Level</label>
+<div class="flex gap-4">
+<label class="flex-1 cursor-pointer">
+<input checked="" class="peer sr-only" name="budget" type="radio"/>
+<div class="py-3 px-4 rounded-xl bg-surface-container-low border border-surface-variant text-center font-label-md text-on-surface-variant peer-checked:bg-primary/10 peer-checked:border-primary peer-checked:text-primary transition-all">
+                                Budget
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="budget" type="radio"/>
+<div class="py-3 px-4 rounded-xl bg-surface-container-low border border-surface-variant text-center font-label-md text-on-surface-variant peer-checked:bg-primary/10 peer-checked:border-primary peer-checked:text-primary transition-all">
+                                Moderate
+                            </div>
+</label>
+<label class="flex-1 cursor-pointer">
+<input class="peer sr-only" name="budget" type="radio"/>
+<div class="py-3 px-4 rounded-xl bg-surface-container-low border border-surface-variant text-center font-label-md text-on-surface-variant peer-checked:bg-primary/10 peer-checked:border-primary peer-checked:text-primary transition-all">
+                                Luxury
+                            </div>
+</label>
+</div>
+</div>
+<div class="flex justify-between mt-auto">
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md py-3 px-6 rounded-lg transition-colors flex items-center gap-2" onclick="prevStep(2)">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                        Back
+                    </button>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md py-3 px-8 rounded-lg shadow-sm transition-colors flex items-center gap-2" onclick="nextStep(4)">
+                        Next
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Step 4: Generating Magic -->
+<div class="step-transition step-hidden w-full bg-surface rounded-xl shadow-sm p-8 md:p-12 text-center flex flex-col items-center justify-center min-h-[400px]" id="step4">
+<div class="w-32 h-32 mb-8 relative">
+<!-- Animation Placeholder -->
+
+<!-- Fallback spinner if animation fails to load -->
+<div class="absolute inset-0 border-4 border-surface-container border-t-primary rounded-full animate-spin" style="z-index: -1;"></div>
+</div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">Crafting Your Journey...</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-2">Our AI is analyzing flight patterns, hotel availability, and local secrets.</p>
+<div class="mt-8 flex flex-col gap-3 w-full max-w-sm">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="font-body-md text-body-md text-left">Filtering optimal dates</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant opacity-50">
+<span class="material-symbols-outlined animate-pulse text-primary">hourglass_empty</span>
+<span class="font-body-md text-body-md text-left">Curating local experiences</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant opacity-20">
+<span class="material-symbols-outlined">hotel</span>
+<span class="font-body-md text-body-md text-left">Finding boutique stays</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleChip(element) {
+            element.classList.toggle('bg-primary');
+            element.classList.toggle('text-on-primary');
+            element.classList.toggle('border-primary');
+            
+            element.classList.toggle('bg-surface-container-low');
+            element.classList.toggle('text-on-surface-variant');
+            element.classList.toggle('border-surface-variant');
+        }
+
+        function updateProgress(step) {
+            const bar = document.getElementById('progress-bar');
+            bar.style.width = `${(step - 1) * 33.33}%`;
+
+            for (let i = 1; i <= 4; i++) {
+                const indicator = document.getElementById(`step${i}-indicator`);
+                const label = document.getElementById(`step${i}-label`);
+                
+                if (i <= step) {
+                    indicator.classList.remove('bg-surface-variant', 'text-on-surface-variant');
+                    indicator.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                    if(label) label.classList.replace('text-on-surface-variant', 'text-primary');
+                } else {
+                    indicator.classList.add('bg-surface-variant', 'text-on-surface-variant');
+                    indicator.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                    if(label) label.classList.replace('text-primary', 'text-on-surface-variant');
+                }
+            }
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.step-transition').forEach(el => {
+                el.classList.remove('step-active');
+                el.classList.add('step-hidden');
+            });
+            
+            setTimeout(() => {
+                const activeStep = document.getElementById(`step${step}`);
+                activeStep.classList.remove('step-hidden');
+                activeStep.classList.add('step-active');
+                updateProgress(step);
+            }, 50); // slight delay to allow hidden class to apply before activating next
+        }
+
+        function prevStep(step) {
+             document.querySelectorAll('.step-transition').forEach(el => {
+                el.classList.remove('step-active');
+                el.classList.add('step-hidden');
+            });
+
+             setTimeout(() => {
+                const activeStep = document.getElementById(`step${step}`);
+                activeStep.classList.remove('step-hidden');
+                activeStep.classList.add('step-active');
+                updateProgress(step);
+            }, 50);
+        }
+    </script>
+</body></html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroGuide AI - Guided Exploration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eeedf3",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#2b1700",
+                      "on-tertiary-container": "#fffbff",
+                      "on-tertiary-fixed-variant": "#930016",
+                      "on-primary-fixed": "#001a41",
+                      "on-surface": "#1a1b1f",
+                      "secondary": "#885200",
+                      "primary": "#0058bc",
+                      "inverse-on-surface": "#f1f0f5",
+                      "tertiary": "#b31e28",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#dad9df",
+                      "outline": "#717786",
+                      "surface-tint": "#005bc1",
+                      "on-tertiary-fixed": "#410005",
+                      "on-primary-container": "#fefcff",
+                      "surface-variant": "#e3e2e7",
+                      "background": "#faf9fe",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-surface": "#2f3034",
+                      "secondary-fixed-dim": "#ffb868",
+                      "surface-bright": "#faf9fe",
+                      "surface-container-highest": "#e3e2e7",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-secondary-container": "#653c00",
+                      "primary-container": "#0070eb",
+                      "error-container": "#ffdad6",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-container-low": "#f4f3f8",
+                      "primary-fixed": "#d8e2ff",
+                      "on-surface-variant": "#414755",
+                      "on-background": "#1a1b1f",
+                      "secondary-container": "#fd9d06",
+                      "on-secondary-fixed-variant": "#673d00",
+                      "inverse-primary": "#adc6ff",
+                      "surface-container-high": "#e9e7ed",
+                      "secondary-fixed": "#ffddbb",
+                      "outline-variant": "#c1c6d7",
+                      "tertiary-container": "#d6393d",
+                      "surface": "#faf9fe",
+                      "on-primary-fixed-variant": "#004493",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Outfit"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Outfit"
+                      ],
+                      "headline-md": [
+                              "Outfit"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Outfit"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .soft-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 88, 188, 0.04);
+        }
+        .hover-shadow:hover {
+            box-shadow: 0px 8px 30px rgba(0, 88, 188, 0.08);
+            border: 1px solid rgba(0, 88, 188, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/85 dark:bg-surface-dim/85 backdrop-blur-xl shadow-sm fixed top-0 w-full z-50">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center h-16 transition-all duration-300 ease-in-out">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                AeroGuide
+            </div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex space-x-8">
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary font-bold pb-1 font-body-md text-body-md transition-all duration-300 ease-in-out hover:opacity-80 transition-opacity" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md transition-all duration-300 ease-in-out hover:opacity-80 transition-opacity" href="#">My Trips</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md transition-all duration-300 ease-in-out hover:opacity-80 transition-opacity" href="#">Profile</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="hidden md:flex bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded-full hover:opacity-80 transition-opacity items-center gap-2">
+                    Start Planning <span class="material-symbols-outlined text-[18px]">flight_takeoff</span>
+</button>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover" data-alt="A generic user profile avatar showing a smiling person in a brightly lit, modern setting, wearing casual travel attire. The lighting is soft and natural, emphasizing a friendly and approachable mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCItr-O9BgAolC3Yu3Pid_or9eCfiX1KauAPgHrL0XGhxxk7268Oq0TjoQowZ55pQADqtWazPJOLQSg8bCUylAksxJCEtkUsGpWxwQgSL8rZ_ABFPtNTo1u42YyQJRb0GzUZ-Q5jcZ4MRjhlkws9qWoSH_Gewp1L4DtV0L5QUhP9wD3v4MsmG2Y7gKBuVgUEGiXbgZx62CIeVpRl0K1sUcBLm8tjAY_mWdS6W-Tp9woAaHorxr9uXWLqQQ1TDf9q9toyql-z4wY5w6U"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-16">
+<!-- Hero Section -->
+<section class="relative min-h-[870px] flex items-center justify-center overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-bright/90 z-10"></div>
+<img class="w-full h-full object-cover" data-alt="A breathtaking, expansive view of a serene coastal landscape at sunrise. The sky is a soft blend of pale blues and warm amber tones. A winding, picturesque road hugs the coastline. The scene is shot with high-end, vibrant travel photography style, conveying a sense of fresh exploration and endless possibilities. The light is soft and diffused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_HtYZZndBLPGjrN_FLavP1n_AOk7xWjkoW4lIwtTyckQd0nSMvtw57gK5ebQRpmZjxBvuaHCCPTjJHIUEN0l50Ii0nKOMSFO5WUeV1GNSkM3fKLWk5_mNP_KNy_z-ueTwfARrwaBDRMiaaNdmVrUT6Fpjr20S97AbJziSOMmNZa5YSs9RZpJj5gBfTcktQvz_G956Ye1if9Fau0IQdpSr5RL8YVonzYGQb-2ZfD-kK_6oQN8NLjEXU0VD4WTDKpOk5yhAo7He05x_"/>
+</div>
+<div class="relative z-20 w-full max-w-container-max px-margin-mobile md:px-margin-desktop text-center mt-[-10vh]">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary-fixed mb-6 drop-shadow-md">
+                    Where to next?
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">
+                    Describe your dream getaway, and our AI will craft a perfectly tailored, airy itinerary in seconds.
+                </p>
+<!-- AI Prompt Bar -->
+<div class="max-w-3xl mx-auto glass-panel rounded-[32px] p-2 flex flex-col md:flex-row items-center soft-shadow hover-shadow transition-all duration-300 border border-white/50">
+<div class="flex-grow flex items-center w-full px-4 py-3 md:py-0">
+<span class="material-symbols-outlined text-primary mr-3" style="font-variation-settings: 'FILL' 1;">temp_preferences_custom</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-body-md text-body-md placeholder-outline p-0" placeholder="e.g. A relaxing 5-day retreat in Kyoto focusing on temples and matcha..." type="text"/>
+</div>
+<button class="w-full md:w-auto mt-2 md:mt-0 bg-primary text-on-primary rounded-full px-8 py-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap">
+                        Generate Itinerary <span class="material-symbols-outlined">magic_button</span>
+</button>
+</div>
+<div class="mt-8 flex flex-wrap justify-center gap-3">
+<span class="bg-surface-container-low text-on-surface px-4 py-2 rounded-full font-body-sm text-body-sm flex items-center gap-2 cursor-pointer hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[16px]">landscape</span> Mountain Escapes</span>
+<span class="bg-surface-container-low text-on-surface px-4 py-2 rounded-full font-body-sm text-body-sm flex items-center gap-2 cursor-pointer hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[16px]">restaurant</span> Culinary Tours</span>
+<span class="bg-surface-container-low text-on-surface px-4 py-2 rounded-full font-body-sm text-body-sm flex items-center gap-2 cursor-pointer hover:bg-surface-variant transition-colors"><span class="material-symbols-outlined text-[16px]">family_restroom</span> Family Friendly</span>
+</div>
+</div>
+</section>
+<!-- How It Works (Bento Grid) -->
+<section class="py-[120px] max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4">Intelligent Planning, Simplified</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">Experience a new standard of travel preparation. Less logistics, more anticipation.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Bento Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 soft-shadow hover-shadow transition-all duration-300 md:col-span-2 flex flex-col justify-center relative overflow-hidden">
+<div class="absolute right-[-10%] top-[-10%] w-64 h-64 bg-primary/5 rounded-full blur-3xl z-0"></div>
+<div class="relative z-10">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Conversational Discovery</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Tell us what you crave in your own words. Our AI understands context, vibe, and pacing to draft the perfect foundation.</p>
+</div>
+</div>
+<!-- Bento Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-8 soft-shadow hover-shadow transition-all duration-300 flex flex-col justify-center">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tune</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Fluid Adjustments</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Swap activities instantly. The itinerary reflows automatically.</p>
+</div>
+<!-- Bento Item 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-0 soft-shadow hover-shadow transition-all duration-300 md:col-span-3 flex flex-col md:flex-row overflow-hidden min-h-[300px]">
+<div class="p-8 md:w-1/2 flex flex-col justify-center">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3">Seamless Navigation</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your entire journey mapped out beautifully. Syncs directly to your phone for offline, stress-free exploration.</p>
+</div>
+<div class="md:w-1/2 bg-surface-container h-full relative min-h-[200px]">
+<div class="absolute inset-0 bg-cover bg-center w-full h-full opacity-80 mix-blend-multiply" data-alt="A sleek, modern digital map interface displayed on a tablet screen, showing a curated travel route winding through a vibrant European city. The map features soft, pastel colors with clear, uncluttered waypoints and elegant typography, reflecting a high-end, intuitive UI design." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDP2orEbj3fDzpVq5FCOB10rqXjUC7SM1z4ET87bI3-tnlRycNX3Z2FJGBlOQgM6kEoFd0vcuXz704V_q4U8fQYGgIrZNnmVObGP8aXuMNq-wbX4Csr-iStCwL7P7i3nuJHZDnxM38N-fpJngeitAjy3cPYzlVmCbCnqqEEOt6sPjmBHmu-hy2iUp7rHQ9dE6e941c71w0Eje3V1iKfSgg2dkbktuq0oAOFBIt8JQKfXUySvLUhxo3gGLLSHkrZcgG4v1MXmSEmdYzZ')"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-highest w-full py-12 flat no shadows">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-on-surface mb-4">AeroGuide</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 AeroGuide AI. Your intuitive travel companion.</p>
+</div>
+<div class="flex flex-col space-y-3">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Privacy Policy</a>
+</div>
+<div class="flex flex-col space-y-3">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Help Center</a>
+</div>
+<div class="flex flex-col space-y-3">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Discover - AeroGuide AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#eeedf3",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#2b1700",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#930016",
+                        "on-primary-fixed": "#001a41",
+                        "on-surface": "#1a1b1f",
+                        "secondary": "#885200",
+                        "primary": "#0058bc",
+                        "inverse-on-surface": "#f1f0f5",
+                        "tertiary": "#b31e28",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dad9df",
+                        "outline": "#717786",
+                        "surface-tint": "#005bc1",
+                        "on-tertiary-fixed": "#410005",
+                        "on-primary-container": "#fefcff",
+                        "surface-variant": "#e3e2e7",
+                        "background": "#faf9fe",
+                        "tertiary-fixed": "#ffdad7",
+                        "inverse-surface": "#2f3034",
+                        "secondary-fixed-dim": "#ffb868",
+                        "surface-bright": "#faf9fe",
+                        "surface-container-highest": "#e3e2e7",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-secondary-container": "#653c00",
+                        "primary-container": "#0070eb",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d8e2ff",
+                        "on-surface-variant": "#414755",
+                        "on-background": "#1a1b1f",
+                        "secondary-container": "#fd9d06",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container-high": "#e9e7ed",
+                        "secondary-fixed": "#ffddbb",
+                        "outline-variant": "#c1c6d7",
+                        "tertiary-container": "#d6393d",
+                        "surface": "#faf9fe",
+                        "on-primary-fixed-variant": "#004493",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Outfit"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Outfit"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ai-sparkle {
+            background: linear-gradient(135deg, #0058bc 0%, #fd9d06 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pt-16">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-sm transition-all duration-300 ease-in-out">
+<div class="max-w-container-max mx-auto px-margin-desktop md:px-margin-mobile flex justify-between items-center h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+                AeroGuide
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary font-bold pb-1 transition-all duration-300 ease-in-out" href="#">Discover</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors transition-all duration-300 ease-in-out hover:opacity-80" href="#">My Trips</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors transition-all duration-300 ease-in-out hover:opacity-80" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm ml-2 outline-none w-48 text-on-surface" placeholder="Search destinations..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-2 rounded-full hover:opacity-80 transition-opacity flex items-center gap-2 shadow-[0px_4px_20px_rgba(0,88,188,0.2)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    Start Planning
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-12">
+<!-- Header & Filters -->
+<section class="mb-12">
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">
+                Find your next <span class="ai-sparkle">adventure</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-2xl">
+                Explore community-curated itineraries and AI-optimized routes for your perfect getaway.
+            </p>
+<!-- Filter Bar -->
+<div class="glass-panel rounded-xl p-4 flex flex-wrap items-center gap-4 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-surface-variant">
+<div class="flex items-center gap-2 bg-surface rounded-full px-4 py-2 border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+<span class="font-body-sm text-body-sm text-on-surface">Any duration</span>
+</div>
+<div class="flex items-center gap-2 bg-surface rounded-full px-4 py-2 border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">payments</span>
+<span class="font-body-sm text-body-sm text-on-surface">Budget</span>
+</div>
+<div class="flex items-center gap-2 bg-surface rounded-full px-4 py-2 border border-outline-variant hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">travel_explore</span>
+<span class="font-body-sm text-body-sm text-on-surface">Travel Style</span>
+</div>
+<div class="flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 text-primary cursor-pointer hover:bg-primary/20 transition-colors ml-auto">
+<span class="material-symbols-outlined">filter_list</span>
+<span class="font-label-md text-label-md">More Filters</span>
+</div>
+</div>
+</section>
+<!-- Masonry Grid -->
+<section class="masonry-grid">
+<!-- Card 1 (Large Image focus) -->
+<div class="masonry-item rounded-xl overflow-hidden relative group shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,88,188,0.1)] transition-all duration-300">
+<img alt="Amalfi Coast" class="w-full h-80 object-cover" data-alt="A breathtaking view of the Amalfi Coast in Italy, featuring colorful cliffside houses overlooking the deep blue Mediterranean sea. The scene is bathed in bright, warm sunlight typical of a summer afternoon, highlighting the vibrant terraced gardens and clear water. The aesthetic is vibrant, inviting, and high-quality travel photography, aligning with a premium travel application's light-mode design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzVtWVhawukf0QJ55ezqrF5BGdlrdVGsNtuxvXTdK57gLgYSgIQhul5_LaL2wKHBD9OC0-Fe0Q1Cu1LqiOyJpCdoa2B6EF1SqArI16MOdCVB374VPc8pRWorRMaPmchMhJnhyNgzcdCG2bnZGROQKm0lk84_1NwNQRZuwQYVHz5cHzVYVyycSHQP5vgdp11PN0RxwJKoQVp2YiBZGe1w22lb9iIkFqXsENZpufjayTknph93flu6KfoP3vSel73M5brY-jLRfyis9M"/>
+<div class="absolute bottom-0 w-full glass-panel p-6 rounded-t-2xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Amalfi Coast Road Trip</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Italy
+                            </p>
+</div>
+<div class="bg-surface-container rounded-full px-3 py-1 font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5 Days
+                        </div>
+</div>
+<div class="flex gap-2 mt-4">
+<span class="bg-surface rounded-full px-3 py-1 font-body-sm text-body-sm text-on-surface-variant text-[12px]">Scenic</span>
+<span class="bg-surface rounded-full px-3 py-1 font-body-sm text-body-sm text-on-surface-variant text-[12px]">Luxury</span>
+</div>
+</div>
+</div>
+<!-- Card 2 (Text Heavy / AI Generated) -->
+<div class="masonry-item bg-surface rounded-xl p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.04)] border border-primary/10 hover:border-primary/30 transition-colors">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined ai-sparkle">auto_awesome</span>
+<span class="font-label-md text-label-md ai-sparkle uppercase tracking-wider">AI Suggested Route</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Hidden Temples of Kyoto</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">An optimized path avoiding major crowds, focusing on tranquil zen gardens and lesser-known historical sites in the northern district.</p>
+<div class="flex flex-col gap-2 relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-variant">
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Ryoan-ji Temple</span>
+</div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Ninna-ji</span>
+</div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-outline-variant flex items-center justify-center"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Myoshin-ji (Optional)</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 bg-primary/10 text-primary font-label-md text-label-md rounded-lg hover:bg-primary/20 transition-colors">Preview Itinerary</button>
+</div>
+<!-- Card 3 -->
+<div class="masonry-item rounded-xl overflow-hidden relative group shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,88,188,0.1)] transition-all duration-300">
+<img alt="Scottish Highlands" class="w-full h-64 object-cover" data-alt="A moody, high-quality image of the Scottish Highlands covered in soft mist. Rolling green hills and a rugged landscape stretch into the distance under an overcast sky. The lighting is diffused and cinematic, creating a sense of dramatic adventure and isolation. The color palette features deep greens, cool grays, and earthy browns, suitable for a premium travel application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1OAMAWcRBKB3ujMa5DJRGk73ZUGYVrUP16muNi8xq9OBrlTxROm5sCFfC5DRNXaC5sPcc_EPCv5WTvDXZJuStlhPg287LGGefCiGYRK-xL-LfPeqHNeUgXU9Ue4FNNs_QOtoUZ-lR33L0ETdqJGwiVdWFXjrwIwp7Cn4VHWPHIC7mvH3zGC_-eClv83afAAAghBLv0WrekIwyRhJr6-OmL_piga3f-KsBoAEMetQY6UUS8x3_BTfkPgGm_XkYytI3EvVyYk1J0ksr"/>
+<div class="absolute bottom-0 w-full glass-panel p-4 rounded-t-xl">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Highland Explorer</h3>
+<div class="flex justify-between items-center mt-2">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scotland</p>
+<span class="font-body-sm text-body-sm text-primary font-semibold">$1,200 est.</span>
+</div>
+</div>
+</div>
+<!-- Card 4 (Community feature) -->
+<div class="masonry-item bg-surface rounded-xl p-6 shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex items-center gap-3 mb-4">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover" data-alt="A close-up, high-quality portrait of a cheerful young woman with curly hair, wearing a casual denim jacket. She is outdoors with a blurred urban background in soft daylight. The lighting is flattering and bright. The image serves as a professional user profile picture for a modern travel application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo-leJQXsaH7nNyM4NNziHjo-1iICSSb8yMMOOWOrWaq6ckkOZliUeQKI6zc-VPmootDmC-ziG3uQjOrz7VXbyJ1VFlIs_09su9kmfvD7M29fwjGIkjNQ2nDBwhK-yo9YyHsgW8KVNxXmPFBcpT36kQLSpqML55XdihaJRsAp7p7xQaKkPmwjPyUB4Q08rYKd4QpbXGi4_RRST-6qCZXvSWoDBqBXVJ4fega1yKs5qOCdDMmz2qqN3k70amUeN5Kf81tCZ8FW6hXjT"/>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Sarah Jenkins</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Top Contributor</p>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">48 Hours in Tokyo: Foodie Edition</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">My exact route hitting the best street food in Shinjuku and hidden sushi spots in Tsukiji.</p>
+<div class="flex gap-2 mb-4">
+<span class="bg-surface-container rounded-full px-3 py-1 font-body-sm text-body-sm text-on-surface text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">restaurant</span> Food &amp; Drink</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-variant pt-4">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="flex items-center gap-1 font-body-sm text-body-sm"><span class="material-symbols-outlined text-[16px]">favorite</span> 1.2k</span>
+<span class="flex items-center gap-1 font-body-sm text-body-sm"><span class="material-symbols-outlined text-[16px]">share</span> Share</span>
+</div>
+<button class="text-primary font-label-md text-label-md hover:opacity-80">View Details</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="masonry-item rounded-xl overflow-hidden relative group shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,88,188,0.1)] transition-all duration-300">
+<img alt="Marrakech Market" class="w-full h-96 object-cover" data-alt="A vibrant, sun-drenched photograph of a bustling Moroccan market (souk) in Marrakech. Stalls are filled with colorful spices piled high in conical shapes, intricate woven rugs, and detailed brass lanterns. The scene is alive with texture and rich, warm colors like terracotta, saffron, and deep blue. The lighting suggests mid-morning sun filtering through slatted roofs, creating a dynamic interplay of light and shadow suitable for an inspiring travel app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQeY0k8_eo4c21nbIf8o0f85hR67FF7aX_sEQ9km4Sss4sAQd6IBbx1HO0nEga56gnvKBPGlDGQXIyYa0Tbdv78U-QiX9RynrrGM77YrD5uI-GerkuyibCsAECfqifqeH1CUnWmXp3OnxoW9aTcKlrXqQwlsg0aUctHe6YRGyS5Tbj0cU-5XZwtaXT9duoe2fKpK7j4ZHphuzK3zQTd1lbA6LlVwmI-95uL26KkRzthlESqykAxo_aHSacB_QZyHCQe8vbuRuKTnaY"/>
+<div class="absolute bottom-0 w-full glass-panel p-6 rounded-t-2xl">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Colors of Marrakech</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Morocco
+                            </p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 line-clamp-2">Immerse yourself in the vibrant souks and stunning riads of the Red City.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container mt-20">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+                    AeroGuide
+                </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 AeroGuide AI. Your intuitive travel companion.</p>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Privacy Policy</a>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Help Center</a>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Contact</a>
+</div>
+</div>
+</footer>
+</body></html>

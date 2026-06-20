@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile - AeroGuide AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eeedf3",
+                      "on-tertiary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#2b1700",
+                      "on-tertiary-container": "#fffbff",
+                      "on-tertiary-fixed-variant": "#930016",
+                      "on-primary-fixed": "#001a41",
+                      "on-surface": "#1a1b1f",
+                      "secondary": "#885200",
+                      "primary": "#0058bc",
+                      "inverse-on-surface": "#f1f0f5",
+                      "tertiary": "#b31e28",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#dad9df",
+                      "outline": "#717786",
+                      "surface-tint": "#005bc1",
+                      "on-tertiary-fixed": "#410005",
+                      "on-primary-container": "#fefcff",
+                      "surface-variant": "#e3e2e7",
+                      "background": "#faf9fe",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-surface": "#2f3034",
+                      "secondary-fixed-dim": "#ffb868",
+                      "surface-bright": "#faf9fe",
+                      "surface-container-highest": "#e3e2e7",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-secondary-container": "#653c00",
+                      "primary-container": "#0070eb",
+                      "error-container": "#ffdad6",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#adc6ff",
+                      "surface-container-low": "#f4f3f8",
+                      "primary-fixed": "#d8e2ff",
+                      "on-surface-variant": "#414755",
+                      "on-background": "#1a1b1f",
+                      "secondary-container": "#fd9d06",
+                      "on-secondary-fixed-variant": "#673d00",
+                      "inverse-primary": "#adc6ff",
+                      "surface-container-high": "#e9e7ed",
+                      "secondary-fixed": "#ffddbb",
+                      "outline-variant": "#c1c6d7",
+                      "tertiary-container": "#d6393d",
+                      "surface": "#faf9fe",
+                      "on-primary-fixed-variant": "#004493",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-sm": ["Outfit"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Outfit"],
+                      "headline-md": ["Outfit"],
+                      "label-md": ["Inter"],
+                      "display-lg-mobile": ["Outfit"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 24px -1px rgba(0, 88, 188, 0.05);
+        }
+        .ai-sparkle {
+            background: linear-gradient(135deg, #0070eb, #fd9d06);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/85 dark:bg-surface-dim/85 backdrop-blur-xl shadow-sm transition-all duration-300 ease-in-out">
+<div class="max-w-container-max mx-auto px-margin-desktop flex justify-between items-center h-16">
+<!-- Brand -->
+<a class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity" href="#">
+                AeroGuide
+            </a>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex space-x-8">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="#">Discover</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors hover:opacity-80 transition-opacity" href="#">My Trips</a>
+<a class="font-body-md text-body-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary font-bold pb-1 hover:opacity-80 transition-opacity" href="#">Profile</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center space-x-4">
+<button class="hidden md:block bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                    Start Planning
+                </button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close up, highly detailed portrait photo of a sophisticated traveler with a soft smile. They are looking slightly off camera, illuminated by bright, natural daylight in a modern, minimalist setting. The mood is calm and aspirational, reflecting a seamless travel experience. The color palette features clean whites and soft neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJH48zpekqA2tfcegFjF76juzhnZqgqzq5qwSLhkApZFEs7ORN3LIovacKEHfzgyeZsGzSjFOZVgE12i2ZqnCDwrFkTj4Nya2DqeBGK107nBzwJqFpM3dD5tuqqvHLwtwOIBzygOuchvKpFuOEwWZB4ItdQzTycRfj_5DEYbyxzZ8vYYIgF9g1CHKXfxEy-RtLORs8QjZkvDYty6o-ziK2iUzE5EjGF93CP3qUbQ9U4elduHW3cmgPgxKzW2-2dmAbUssinjMba2-z"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto min-h-screen">
+<!-- Profile Header -->
+<header class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12 animate-fade-in-up">
+<div class="w-32 h-32 md:w-40 md:w-40 rounded-full overflow-hidden border-4 border-surface-container-highest shadow-sm relative group">
+<img alt="User profile large" class="w-full h-full object-cover" data-alt="A close up, highly detailed portrait photo of a sophisticated traveler with a soft smile. They are looking slightly off camera, illuminated by bright, natural daylight in a modern, minimalist setting. The mood is calm and aspirational, reflecting a seamless travel experience. The color palette features clean whites and soft neutral tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOxVV0dxzaiEeBEV0bCja80iOjb6iKOAbGL-eZzK6zRSJ-FOjrmiIPhYoCFLnuPmj3Sb3BXqYWYEcbvrQPmMOESEzjh-P7X0Z2dktKsTvqEtHF7Mdui_6a3lLoog_8P5BvWylGWWhjDvvuiiXmuOh-og-CcjcxJYslhwPbfpmIFpQB1-G1ZVNAA5pedOfqbK1yXS0t4eQXZBBvmT0_oM_NuX6eO78wsBRkn2OSHiKvKBqPfen2XPL4dKzbdVGBb7mZeGGC5VwNEeZd"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer backdrop-blur-sm">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">edit</span>
+</div>
+</div>
+<div class="text-center md:text-left flex-1">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-surface mb-2">Alex Voyager</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-4">Explorer Level: <span class="text-primary font-semibold">Global Nomad</span></p>
+<div class="flex flex-wrap justify-center md:justify-start gap-3">
+<span class="px-4 py-2 bg-surface-container rounded-full font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">flight_takeoff</span>
+                        14 Countries Visited
+                    </span>
+<span class="px-4 py-2 bg-surface-container rounded-full font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">map</span>
+                        3 upcoming trips
+                    </span>
+<button class="px-4 py-2 bg-surface-container hover:bg-surface-variant transition-colors rounded-full font-label-md text-label-md text-on-surface flex items-center gap-1 cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+                        Settings
+                    </button>
+</div>
+</div>
+</header>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column (Trips & Buckets) -->
+<div class="lg:col-span-8 space-y-8">
+<!-- Upcoming Trips -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+                            Upcoming Trips
+                        </h2>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Trip Card 1 -->
+<div class="glass-panel rounded-xl overflow-hidden group cursor-pointer hover:-translate-y-1 transition-transform duration-300">
+<div class="h-40 relative">
+<img alt="Kyoto Trip" class="w-full h-full object-cover" data-alt="A breathtaking, panoramic view of Kyoto, Japan during cherry blossom season. The scene is bathed in soft, ethereal morning light, creating a dreamy, light-mode aesthetic. Ancient wooden temples peek through a sea of vibrant pink blossoms, set against a pristine blue sky. The composition is clean, expansive, and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSPO23nGEbAVo0MLQNJhbBwrhvhLbGDFuH8jFvxpun5mlwrmEhwvMQ5GU8eOETp-gVUmX3E3PU30WzUCm1wUg4iD-zFeziFgt-MQDhJcbX0BM9l0yFFuomJ3F2nM0aFeIjW6i_bYqUizJWlAJg0iJmIyk863_UXMIeJvJ0nlxiaE97OUvifiTACCPWmuy5sXPQxmJMiAp0I2f3Xnlqh1TWgzFqxJmpSlwNMt9oHdY9Z8SKC3qE-zwWj79rH1c2nXJTYRvDhTull1u6"/>
+<div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-md px-3 py-1 rounded-full font-label-md text-label-md text-on-surface shadow-sm">
+                                    In 12 Days
+                                </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Kyoto Serenity</h3>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">flight</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Apr 12 - Apr 20 • Solo Trip</p>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container-low rounded font-label-md text-[10px] text-on-surface-variant">Culture</span>
+<span class="px-2 py-1 bg-surface-container-low rounded font-label-md text-[10px] text-on-surface-variant">Photography</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mb-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant text-right">Planning 85% Complete</p>
+</div>
+</div>
+<!-- Add New Trip Card -->
+<div class="glass-panel rounded-xl border-dashed border-2 border-outline-variant flex flex-col items-center justify-center p-8 cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors duration-300 min-h-[300px]">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2">Plan a New Journey</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-[200px]">Let our AI craft your next perfect adventure.</p>
+</div>
+</div>
+</section>
+<!-- Saved Buckets (Wishlist) -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">bookmark</span>
+                            Saved Buckets
+                        </h2>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 snap-x hide-scrollbar">
+<!-- Bucket 1 -->
+<div class="flex-none w-64 glass-panel rounded-xl p-4 snap-start cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-32 rounded-lg overflow-hidden mb-4">
+<img alt="Iceland" class="w-full h-full object-cover" data-alt="A spectacular view of the Northern Lights over a stark, icy Icelandic landscape. Vibrant ribbons of green and purple light dance across a clear, dark night sky. The foreground features jagged, snow-covered rocks illuminated softly by the auroras. The aesthetic is clean, modern, and awe-inspiring, capturing the magic of natural phenomena." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgug21TtVOMFbQTEd3FoyWHkGUpcp3i7Ey3p71pxGWk88x6EAmncGHywePSnWs843PZShLfDU6XQrk3ENcHxbfVrfeHZJ0UcVlAWO0tJAcLIZBQl2FUoTWYYruyfBbTxvlQoSfc8eElizIFZ6uNW5IHYAJ-ML_qbFFiCdmBSUHsQOLGAAeVN_1EQY6v6vNyQBbDxW9EFCR690PbFe1UrsNdXbbApXVq7AYye15plac0oeHZhlXIVusP9tIxwubhTf7c5GjADn4pL1k"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Nordic Lights</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Iceland • 8 places saved</p>
+</div>
+<!-- Bucket 2 -->
+<div class="flex-none w-64 glass-panel rounded-xl p-4 snap-start cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-32 rounded-lg overflow-hidden mb-4">
+<img alt="Bangkok" class="w-full h-full object-cover" data-alt="A vibrant, bustling street food market in Bangkok at dusk. Woks flash with fire, and colorful neon signs blur in the background. The scene is lively and energetic, filled with clean, warm light that highlights the delicious textures of the food. The aesthetic is modern and immersive, focusing on culinary exploration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChw1wQnFxYhE5H_mh7pJjUO4pqJZVTRt8O1x2Irf7thbX9c2VQrcBjxP6uNxDbiI4izVU1xCXTOLnurk2DygnOOZcDb7ffztI-tK91RWgBMiQmiDgxyxBedGF0yuVEIP1b6JANVqMX3aJMLXCJ8hvl0qqJ8ttFVC_icnLtwfAbLsxKzsW24NqSGQDvDnv0ZaK-GLkeaVwr_S2K-OTgb1UzsRBAv1B3tqwGDCycatJ1vxrI-anbRh2pjzj-OnJjvGy-XQmtCHLdyLqr"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Asian Street Food</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Thailand, Vietnam • 15 places</p>
+</div>
+<!-- Bucket 3 -->
+<div class="flex-none w-64 glass-panel rounded-xl p-4 snap-start cursor-pointer hover:shadow-md transition-shadow">
+<div class="h-32 rounded-lg overflow-hidden mb-4">
+<img alt="Maldives" class="w-full h-full object-cover" data-alt="A serene, minimalist view of a pristine beach in the Maldives. Crystal clear turquoise water gently laps onto powdery white sand. A single, elegant overwater bungalow sits in the distance under a bright, cloudless sky. The lighting is high-key and airy, creating a relaxing, light-mode luxury travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoiVD5hm2_13PTRQ0sUnFlWCzTda0yXq1_R4FTva7W0VdInQ92ueiUKS5akzKnS4BWgyxBWTV6LjMKUD5oMcsp6hT1-ZfScqMxMlzK2_EhtEpJjF2BEly5xJXNmKXm0YPP2cYLcNIQ-c0-SOgOPGWQXgxVl_15pXZp2dpu74DeWhfvEuksNS3tjGY_hMDmhbDF6eWNT6UGJzEbKLXdIJRg8sDSeCfPqw2DLuHoD6bvHibvEwuekGSdBe8wZjyXfjCBRzocBwGCxrkB"/>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Island Escapes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Maldives • 3 places</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Stats & Preferences) -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Travel Stats -->
+<div class="glass-panel rounded-xl p-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 border-b border-surface-variant pb-2">Travel Statistics</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">flight</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Flights Taken</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">42</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">hotel</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Nights Away</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">128</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">directions_walk</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Miles Walked</p>
+<p class="font-headline-sm text-headline-sm text-on-surface">350+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Preferences -->
+<div class="glass-panel rounded-xl p-6 relative overflow-hidden">
+<!-- Subtle gradient background for AI feel -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 pointer-events-none"></div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2 relative z-10">
+<span class="material-symbols-outlined ai-sparkle">auto_awesome</span>
+                        AI Preferences
+                    </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 relative z-10">Tailor how AeroGuide plans for you.</p>
+<div class="space-y-4 relative z-10">
+<label class="flex items-center justify-between cursor-pointer p-3 bg-surface rounded-lg border border-surface-variant hover:border-primary/30 transition-colors">
+<div>
+<span class="block font-body-md text-body-md text-on-surface font-semibold">Pace: Relaxed</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Fewer activities, more downtime</span>
+</div>
+<div class="relative">
+<input checked="" class="sr-only" type="checkbox"/>
+<div class="w-10 h-6 bg-primary rounded-full transition-colors"></div>
+<div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform translate-x-4"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer p-3 bg-surface rounded-lg border border-surface-variant hover:border-primary/30 transition-colors">
+<div>
+<span class="block font-body-md text-body-md text-on-surface font-semibold">Budget: Mid-range</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Comfortable, occasional splurges</span>
+</div>
+<span class="material-symbols-outlined text-outline">edit</span>
+</label>
+<button class="w-full py-3 mt-2 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-variant transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                            Advanced Settings
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-surface-container dark:bg-surface-container-highest transition-colors duration-200">
+<div class="max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="md:col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface dark:text-on-surface mb-4">
+                    AeroGuide
+                </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    © 2024 AeroGuide AI. Your intuitive travel companion.
+                </p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-x-8 gap-y-4 md:justify-end">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<style>
+        /* Custom Utilities */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</body></html>
