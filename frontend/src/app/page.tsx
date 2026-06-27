@@ -5,16 +5,20 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSelector from '@/components/LanguageSelector';
-import { getDailyLandingImage } from '@/lib/unsplash';
+import { getDailyLandingImage, getTravelPhoto } from '@/lib/unsplash';
 
 export default function Home() {
   const router = useRouter();
   const [prompt, setPrompt] = useState('');
   const [heroImage, setHeroImage] = useState('https://lh3.googleusercontent.com/aida-public/AB6AXuCc-F-71UrXqdC7dRvz62G5o6YUOhXywCbsrRCbPAzfB3YlAymVsazWwux9vLNxGz0kjWZZ_as_DsdPYeyEJ9ZCu49z9I2BqoZucG5-MUlckoy0jFiFt2eKChoOsF0gRlmhCigQVilPHi-1pV0aqYJwoS-S67KOcY2HKDOpIYnkQ6tconJDU3LE3PtvZbO-CfrjAIB-rTHTOGk_j_D1edsV-db-xuxOqMF3VwFX052ZwGt0CBU52q4co7dH0WSKb4bs5bweK_IZac0');
+  const [ctaImage, setCtaImage] = useState('https://lh3.googleusercontent.com/aida-public/AB6AXuAJF-4HffU7La3O9eeXHGBEwoL4C2Pbx2QWvL-Ku8WX81mxMUSJwLQo7ceaKSFkp8bz4_81LIGXGTnd5DnNbpfwRv00iQV79nKLivqCa-6CMgL9ZcjJwXAvZ7xKzCocztL6WSOcYJnZTpDBBhpxbqYwW5Lp9hP5mdoHeMil97t2aurJ12ZDJKM2QDTtmZkty14NamJMjF6cPUBOA39_GH-RMmarHBJ2a7y1SPRsrEEsNfdWqNvP4lNjonF8ANyjFwJWLMCP7G5u590');
 
   useEffect(() => {
     getDailyLandingImage().then(url => {
       if (url) setHeroImage(url);
+    });
+    getTravelPhoto('epic tropical beach sunset').then(url => {
+      if (url) setCtaImage(url);
     });
   }, []);
 
@@ -223,7 +227,7 @@ export default function Home() {
         {/* CTA Section */}
         <section className="py-32 relative overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJF-4HffU7La3O9eeXHGBEwoL4C2Pbx2QWvL-Ku8WX81mxMUSJwLQo7ceaKSFkp8bz4_81LIGXGTnd5DnNbpfwRv00iQV79nKLivqCa-6CMgL9ZcjJwXAvZ7xKzCocztL6WSOcYJnZTpDBBhpxbqYwW5Lp9hP5mdoHeMil97t2aurJ12ZDJKM2QDTtmZkty14NamJMjF6cPUBOA39_GH-RMmarHBJ2a7y1SPRsrEEsNfdWqNvP4lNjonF8ANyjFwJWLMCP7G5u590')" }}></div>
+            <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url('${ctaImage}')` }}></div>
             <div className="absolute inset-0 bg-primary/60"></div>
           </div>
           <div className="relative z-10 max-w-container-max mx-auto px-margin-desktop text-center">
@@ -243,34 +247,34 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto">
           <div className="md:col-span-1">
             <span className="font-headline-sm text-headline-sm text-secondary-fixed dark:text-secondary block mb-6">VoyageEase</span>
-            <p className="text-body-sm opacity-80 mb-6 font-medium">Your journey begins here. We help you explore the world with the power of artificial intelligence.</p>
+            <p className="text-body-sm opacity-80 mb-6 font-medium text-slate-300 dark:text-on-surface-variant">Your journey begins here. We help you explore the world with the power of artificial intelligence.</p>
           </div>
           <div>
-            <h5 className="font-bold mb-6 text-on-primary-fixed-variant dark:text-on-surface-variant uppercase text-[12px] tracking-widest">Company</h5>
+            <h5 className="font-bold mb-6 text-white dark:text-on-surface uppercase text-[12px] tracking-widest">Company</h5>
             <ul className="space-y-4 list-none p-0 m-0">
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">About Us</Link></li>
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Careers</Link></li>
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Contact</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">About Us</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Careers</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h5 className="font-bold mb-6 text-on-primary-fixed-variant dark:text-on-surface-variant uppercase text-[12px] tracking-widest">Product</h5>
+            <h5 className="font-bold mb-6 text-white dark:text-on-surface uppercase text-[12px] tracking-widest">Product</h5>
             <ul className="space-y-4 list-none p-0 m-0">
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Explore</Link></li>
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="/plan">Planner</Link></li>
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Help Center</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Explore</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="/plan">Planner</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Help Center</Link></li>
             </ul>
           </div>
           <div>
-            <h5 className="font-bold mb-6 text-on-primary-fixed-variant dark:text-on-surface-variant uppercase text-[12px] tracking-widest">Legal</h5>
+            <h5 className="font-bold mb-6 text-white dark:text-on-surface uppercase text-[12px] tracking-widest">Legal</h5>
             <ul className="space-y-4 list-none p-0 m-0">
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Privacy Policy</Link></li>
-              <li><Link className="text-on-primary-fixed-variant dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Terms of Service</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Privacy Policy</Link></li>
+              <li><Link className="text-slate-300 dark:text-on-surface-variant hover:text-white transition-colors hover:underline decoration-secondary-fixed font-medium text-body-sm" href="#">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
         <div className="mt-20 border-t border-on-primary/10 pt-10 text-center">
-          <p className="font-body-sm text-body-sm opacity-60">© 2026 VoyageEase. All rights reserved. Your journey begins here.</p>
+          <p className="font-body-sm text-body-sm opacity-60 text-slate-400 dark:text-on-surface-variant">© 2026 VoyageEase. All rights reserved. Your journey begins here.</p>
         </div>
       </footer>
     </div>
