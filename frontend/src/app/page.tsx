@@ -66,29 +66,21 @@ export default function Home() {
             <h1 className="font-display-lg text-display-lg text-white mb-8 drop-shadow-lg max-w-3xl mx-auto">
               Your Perfect Trip, Planned in Seconds
             </h1>
-            {/* Search Component */}
-            <form onSubmit={handleGenerate} className="glass-panel p-2 md:p-4 rounded-xl shadow-xl max-w-4xl mx-auto flex flex-col md:flex-row gap-2 items-stretch border border-white/40">
-              <div className="flex-1 flex flex-col items-start px-4 py-2 border-r border-outline-variant/30 last:border-0">
-                <label className="font-body-sm font-bold text-on-surface-variant uppercase tracking-wider mb-1">Destination</label>
+            {/* AI Plan Conversational Prompt Search Bar */}
+            <form onSubmit={handleGenerate} className="glass-panel p-3 rounded-full shadow-2xl max-w-3xl mx-auto flex items-center border border-white/40 gap-3">
+              <div className="flex-grow flex items-center pl-6">
+                <span className="material-symbols-outlined text-secondary text-2xl mr-3" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
                 <input 
-                  className="w-full bg-transparent border-none focus:ring-0 text-body-lg font-semibold text-primary placeholder:text-outline p-0 outline-none" 
-                  placeholder="Where to?" 
+                  className="w-full bg-transparent border-none focus:ring-0 text-body-lg font-semibold text-primary placeholder:text-slate-400 p-0 outline-none" 
+                  placeholder="e.g. 4-day Goa trip for 2 people with ₹25,000 budget, beaches..." 
                   type="text"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                 />
               </div>
-              <div className="flex-1 flex flex-col items-start px-4 py-2 border-r border-outline-variant/30 last:border-0">
-                <label className="font-body-sm font-bold text-on-surface-variant uppercase tracking-wider mb-1">Dates</label>
-                <input className="w-full bg-transparent border-none focus:ring-0 text-body-lg font-semibold text-primary placeholder:text-outline p-0 outline-none" placeholder="Add dates" type="text" />
-              </div>
-              <div className="flex-1 flex flex-col items-start px-4 py-2 last:border-0">
-                <label className="font-body-sm font-bold text-on-surface-variant uppercase tracking-wider mb-1">Travelers</label>
-                <input className="w-full bg-transparent border-none focus:ring-0 text-body-lg font-semibold text-primary placeholder:text-outline p-0 outline-none" placeholder="1 Traveler" type="text" />
-              </div>
-              <button type="submit" className="bg-secondary text-on-primary px-8 py-4 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95 border-none cursor-pointer">
-                <span className="material-symbols-outlined">travel_explore</span>
-                <span className="font-semibold">Start Planning</span>
+              <button type="submit" className="bg-secondary text-on-primary px-8 py-4 rounded-full flex items-center justify-center gap-2 hover:opacity-90 transition-all active:scale-95 border-none cursor-pointer">
+                <span className="material-symbols-outlined">magic_button</span>
+                <span className="font-semibold">Generate Plan</span>
               </button>
             </form>
           </div>
