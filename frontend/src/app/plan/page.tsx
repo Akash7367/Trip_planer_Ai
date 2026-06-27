@@ -299,7 +299,7 @@ function PlanTripContent() {
           )}
 
           {planResult && (
-            <div className="w-full max-w-4xl mt-4 animate-fade-in">
+            <div className="w-full max-w-container-max mt-4 animate-fade-in">
               <div className="flex justify-between items-center mb-6">
                 <div>
                   <h1 className="font-display-lg text-on-surface mb-1">Your Custom Itinerary</h1>
