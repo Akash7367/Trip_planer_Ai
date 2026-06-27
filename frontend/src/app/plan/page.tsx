@@ -7,8 +7,8 @@ import { useAuth } from '@/context/AuthContext';
 import TripPlanResults from '@/components/dashboard/TripPlanResults';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSelector from '@/components/LanguageSelector';
-
 import AIWorkspace from '@/components/workspace/AIWorkspace';
+import { getDailyLandingImage } from '@/lib/unsplash';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -25,6 +25,7 @@ function PlanTripContent() {
   const [budget, setBudget] = useState('Moderate');
   const [sourceCity, setSourceCity] = useState('Delhi');
   const [customBudget, setCustomBudget] = useState('');
+  const [bgImage, setBgImage] = useState('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80');
 
   // Instant planning states
   const [isInstantPlan, setIsInstantPlan] = useState(false);
@@ -33,6 +34,12 @@ function PlanTripContent() {
   const [planResult, setPlanResult] = useState<any>(null);
   const [planningError, setPlanningError] = useState<string | null>(null);
   const [originalQueryText, setOriginalQueryText] = useState('Plan a trip');
+
+  useEffect(() => {
+    getDailyLandingImage().then(url => {
+      if (url) setBgImage(url);
+    });
+  }, []);
 
   useEffect(() => {
     const promptParam = searchParams.get('prompt');
@@ -374,6 +381,17 @@ function PlanTripContent() {
 
       {/* Main Content Canvas */}
       <main className="flex-grow flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto relative overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90 dark:to-background/95 z-10"></div>
+          <div className="absolute inset-0 bg-black/10 dark:bg-black/35 z-10"></div>
+          <img 
+            className="w-full h-full object-cover opacity-15 dark:opacity-10 transition-opacity duration-700 blur-[2px]" 
+            alt="Daily landscape" 
+            src={bgImage}
+          />
+        </div>
+
         {/* Progress Indicator */}
         <div className="w-full max-w-2xl mb-12 flex justify-between items-center relative">
           <div className="absolute top-1/2 left-0 w-full h-1 bg-surface-container -z-10 rounded-full transform -translate-y-1/2"></div>
