@@ -5,11 +5,18 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 import LanguageSelector from '@/components/LanguageSelector';
+import { getDailyLandingImage } from '@/lib/unsplash';
 
 export default function Home() {
   const router = useRouter();
   const [prompt, setPrompt] = useState('');
   const [heroImage, setHeroImage] = useState('https://lh3.googleusercontent.com/aida-public/AB6AXuCc-F-71UrXqdC7dRvz62G5o6YUOhXywCbsrRCbPAzfB3YlAymVsazWwux9vLNxGz0kjWZZ_as_DsdPYeyEJ9ZCu49z9I2BqoZucG5-MUlckoy0jFiFt2eKChoOsF0gRlmhCigQVilPHi-1pV0aqYJwoS-S67KOcY2HKDOpIYnkQ6tconJDU3LE3PtvZbO-CfrjAIB-rTHTOGk_j_D1edsV-db-xuxOqMF3VwFX052ZwGt0CBU52q4co7dH0WSKb4bs5bweK_IZac0');
+
+  useEffect(() => {
+    getDailyLandingImage().then(url => {
+      if (url) setHeroImage(url);
+    });
+  }, []);
 
   const handleGenerate = (e: React.FormEvent) => {
     e.preventDefault();
