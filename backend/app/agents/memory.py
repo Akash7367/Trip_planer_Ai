@@ -50,7 +50,7 @@ def get_embedding(text: str) -> List[float]:
         except Exception as e:
             logger.error(f"Gemini embedding generation failed: {str(e)}")
 
-    if settings.OPENAI_API_KEY:
+    if settings.OPENAI_API_KEY and not settings.IS_GROQ:
         try:
             from openai import OpenAI
             client = OpenAI(api_key=settings.OPENAI_API_KEY)

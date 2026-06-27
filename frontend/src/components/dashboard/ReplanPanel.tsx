@@ -85,23 +85,23 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
   };
 
   return (
-    <div className="bg-white border border-[#eeedf3] rounded-2xl p-6 shadow-sm">
-      <h4 className="text-[14px] font-bold text-[#414755] uppercase tracking-wider mb-3">Dynamic Replanning</h4>
-      <p className="text-[12px] text-slate-500 mb-4">
+    <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm text-left">
+      <h4 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-3 font-heading">Dynamic Replanning</h4>
+      <p className="text-[12px] text-on-surface-variant/85 mb-4">
         Regenerate only affected sections of your trip schedule or budget when circumstances change.
       </p>
       
       <form onSubmit={handleReplan} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">What changed?</label>
+            <label className="block text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1.5">What changed?</label>
             <select
               value={replanType}
               onChange={(e) => {
                 setReplanType(e.target.value as any);
                 setOverrideValue('');
               }}
-              className="w-full bg-[#f4f3f8] border border-[#eeedf3] rounded-xl px-4 py-2.5 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0058bc]"
+              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary"
             >
               <option value="budget">Budget Changes</option>
               <option value="weather">Change Destination / Weather</option>
@@ -110,8 +110,8 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">
-              {replanType === 'budget' && 'New Budget ($)'}
+            <label className="block text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1.5">
+              {replanType === 'budget' && 'New Budget (₹)'}
               {replanType === 'weather' && 'New Destination City'}
               {replanType === 'itinerary' && 'Name of Closed Attraction'}
             </label>
@@ -120,11 +120,11 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
               value={overrideValue}
               onChange={(e) => setOverrideValue(e.target.value)}
               placeholder={
-                replanType === 'budget' ? 'e.g. 5000' :
+                replanType === 'budget' ? 'e.g. 50000' :
                 replanType === 'weather' ? 'e.g. London' : 'e.g. Eiffel Tower'
               }
               required
-              className="w-full bg-[#f4f3f8] border border-[#eeedf3] rounded-xl px-4 py-2.5 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0058bc]"
+              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
         </div>
@@ -132,20 +132,20 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
         <button
           type="submit"
           disabled={isReplanning}
-          className="w-full bg-slate-900 text-white py-2.5 rounded-xl text-[13px] font-bold hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+          className="w-full bg-primary text-on-primary py-2.5 rounded-xl text-[13px] font-bold hover:bg-opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-[18px]">autorenew</span>
           {isReplanning ? 'Regenerating Affected Sections...' : 'Run Selective Replan'}
         </button>
 
         {success && (
-          <p className="text-[12px] text-emerald-600 font-medium flex items-center gap-1">
+          <p className="text-[12px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">check_circle</span>
             Trip updated successfully (regenerated affected components only)!
           </p>
         )}
         {error && (
-          <p className="text-[12px] text-[#ba1a1a] font-medium flex items-center gap-1">
+          <p className="text-[12px] text-error font-medium flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">error</span>
             {error}
           </p>

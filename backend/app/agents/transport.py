@@ -17,7 +17,11 @@ def plan_transport(req: TransportRequest) -> List[TransportOption]:
             genai.configure(api_key=settings.GEMINI_API_KEY)
             model = genai.GenerativeModel("gemini-1.5-flash")
             
-            prompt = f"Plan transport routes for: {req.model_dump_json()}"
+            prompt = (
+                f"Plan transport routes for: {req.model_dump_json()}.\n"
+                f"IMPORTANT: You MUST plan, calculate, and provide all costs in Indian Rupees (INR, ₹). "
+                f"Ensure cost values are realistic Indian Rupee amounts (e.g. ₹4000 to ₹12000+ for domestic flights, ₹1000 to ₹4000 for trains)."
+            )
             response = model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
@@ -32,20 +36,16 @@ def plan_transport(req: TransportRequest) -> List[TransportOption]:
 
     if settings.OPENAI_API_KEY:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
-            
-            prompt = f"Plan transport routes for: {req.model_dump_json()}"
-            response = client.beta.chat.completions.parse(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
-                response_format=TransportResponse
+            from app.core.llm import generate_structured_output
+            prompt = (
+                f"Plan transport routes for: {req.model_dump_json()}.\n"
+                f"IMPORTANT: You MUST plan, calculate, and provide all costs in Indian Rupees (INR, ₹). "
+                f"Ensure cost values are realistic Indian Rupee amounts (e.g. ₹4000 to ₹12000+ for domestic flights, ₹1000 to ₹4000 for trains)."
             )
-            return response.choices[0].message.parsed.options
+            result = generate_structured_output(prompt, TransportResponse)
+            return result.options
         except Exception as e:
-            logger.error(f"OpenAI transport planning failed, falling back: {str(e)}")
+            logger.error(f"OpenAI/Groq transport planning failed, falling back: {str(e)}")
 
     # Heuristic fallback matching
     logger.info("Executing rule-based transport suggestions.")

@@ -33,21 +33,12 @@ def get_recommendations(inputs: RecommendationInput) -> List[DestinationRecommen
 
     if settings.OPENAI_API_KEY:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
-            
+            from app.core.llm import generate_structured_output
             prompt = f"Recommend destinations based on these preferences: {inputs.model_dump_json()}"
-            
-            response = client.beta.chat.completions.parse(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
-                response_format=RecommendationList
-            )
-            return response.choices[0].message.parsed.recommendations
+            result = generate_structured_output(prompt, RecommendationList)
+            return result.recommendations
         except Exception as e:
-            logger.error(f"OpenAI recommendations failed, falling back: {str(e)}")
+            logger.error(f"OpenAI/Groq recommendations failed, falling back: {str(e)}")
 
     # Heuristics/rule-based scoring fallback
     logger.info("Executing rule-based destination recommendations.")

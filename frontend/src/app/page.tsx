@@ -1,12 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import ThemeToggle from '@/components/ThemeToggle';
+import LanguageSelector from '@/components/LanguageSelector';
+import { getDailyLandingImage } from '@/lib/unsplash';
 
 export default function Home() {
   const router = useRouter();
   const [prompt, setPrompt] = useState('');
+  const [heroImage, setHeroImage] = useState('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80');
+
+  useEffect(() => {
+    getDailyLandingImage().then(url => {
+      if (url) setHeroImage(url);
+    });
+  }, []);
 
   const handleGenerate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +50,8 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <LanguageSelector />
             <div className="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2">
               <span className="material-symbols-outlined text-outline">search</span>
               <input 
@@ -67,14 +79,14 @@ export default function Home() {
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-surface-bright/90 z-10"></div>
             <img 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover dark:opacity-25 transition-opacity duration-700" 
               alt="A breathtaking, expansive view of a serene coastal landscape at sunrise" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_HtYZZndBLPGjrN_FLavP1n_AOk7xWjkoW4lIwtTyckQd0nSMvtw57gK5ebQRpmZjxBvuaHCCPTjJHIUEN0l50Ii0nKOMSFO5WUeV1GNSkM3fKLWk5_mNP_KNy_z-ueTwfARrwaBDRMiaaNdmVrUT6Fpjr20S97AbJziSOMmNZa5YSs9RZpJj5gBfTcktQvz_G956Ye1if9Fau0IQdpSr5RL8YVonzYGQb-2ZfD-kK_6oQN8NLjEXU0VD4WTDKpOk5yhAo7He05x_"
+              src={heroImage}
             />
           </div>
           
           <div className="relative z-20 w-full max-w-container-max px-margin-mobile md:px-margin-desktop text-center mt-[-10vh]">
-            <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-primary-fixed mb-6 drop-shadow-md">
+            <h1 className="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-6 drop-shadow-md font-heading">
               Where to next?
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl mx-auto">

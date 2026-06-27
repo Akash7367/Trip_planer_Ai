@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from app.api.v1.endpoints import (
     health, auth, users, tools, understanding, recommendation,
     weather, transport, accommodation, itinerary, orchestrator, memory, trips,
-    email, replanner
+    email, replanner, travel_intelligence, ai_chat
 )
 
 api_router = APIRouter()
@@ -17,10 +17,12 @@ api_router.include_router(transport.router, prefix="/transport", tags=["transpor
 api_router.include_router(accommodation.router, prefix="/accommodation", tags=["accommodation"])
 api_router.include_router(itinerary.router, prefix="/itinerary", tags=["itinerary"])
 api_router.include_router(orchestrator.router, prefix="/orchestrator", tags=["orchestrator"])
+api_router.include_router(travel_intelligence.router, prefix="/orchestrator", tags=["orchestrator"])
 api_router.include_router(memory.router, prefix="/memory", tags=["memory"])
 api_router.include_router(trips.router, prefix="/trips", tags=["trips"])
 api_router.include_router(email.router, prefix="/trips", tags=["trips"])
 api_router.include_router(replanner.router, prefix="/trips", tags=["trips"])
+api_router.include_router(ai_chat.router, prefix="/ai", tags=["ai-chat"])
 
 
 

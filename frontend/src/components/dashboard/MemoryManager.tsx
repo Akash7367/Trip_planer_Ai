@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -104,104 +105,118 @@ export default function MemoryManager({ user_id }: MemoryManagerProps) {
   };
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
-      {/* Add memory form */}
-      <div className="bg-white border border-[#eeedf3] rounded-2xl p-6 shadow-sm h-fit">
-        <h3 className="text-[18px] font-bold text-[#001a41] mb-6 flex items-center gap-2">
-          <span className="material-symbols-outlined text-[#0058bc]">temp_preferences_custom</span> Add Preference Memory
-        </h3>
-        
-        <form onSubmit={handleAddMemory} className="space-y-5">
-          <div>
-            <label className="text-[12px] font-bold uppercase tracking-wider text-[#414755] block mb-2">Category Type</label>
-            <select 
-              className="w-full bg-[#f4f3f8] border border-[#eeedf3] rounded-xl p-3 text-[14px] text-[#1a1b1f] focus:outline-none"
-              value={memoryCategory}
-              onChange={(e) => setMemoryCategory(e.target.value)}
-            >
-              <option value="favorite_destinations">Favorite Destinations</option>
-              <option value="travel_style">Travel Style</option>
-              <option value="budget_preferences">Budget Preferences</option>
-              <option value="trip_history">Trip History</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="text-[12px] font-bold uppercase tracking-wider text-[#414755] block mb-2">Details Context</label>
-            <textarea 
-              className="w-full bg-[#f4f3f8] border border-[#eeedf3] rounded-xl p-3 text-[14px] text-[#1a1b1f] focus:outline-none focus:border-[#0058bc] h-32 resize-none"
-              placeholder="Enter preferences (e.g. Loves taking trains, prefers boutique hotels with pool access)..."
-              value={memoryContent}
-              onChange={(e) => setMemoryContent(e.target.value)}
-              required
-              disabled={isAddingMemory}
-            />
-          </div>
-
-          {memoryError && (
-            <div className="bg-[#ffdad6] text-[#93000a] text-[12px] p-3 rounded-lg border border-[#ba1a1a]">
-              {memoryError}
+    <div className="grid lg:grid-cols-3 gap-8 text-left">
+      {/* Left panel: Preferences & Languages */}
+      <div className="space-y-6">
+        {/* Add memory form */}
+        <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm h-fit">
+          <h3 className="text-[18px] font-bold text-on-surface mb-6 flex items-center gap-2 font-heading">
+            <span className="material-symbols-outlined text-primary">temp_preferences_custom</span> Add Preference Memory
+          </h3>
+          
+          <form onSubmit={handleAddMemory} className="space-y-5">
+            <div>
+              <label className="text-[12px] font-bold uppercase tracking-wider text-on-surface-variant block mb-2">Category Type</label>
+              <select 
+                className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl p-3 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary"
+                value={memoryCategory}
+                onChange={(e) => setMemoryCategory(e.target.value)}
+              >
+                <option value="favorite_destinations">Favorite Destinations</option>
+                <option value="travel_style">Travel Style</option>
+                <option value="budget_preferences">Budget Preferences</option>
+                <option value="trip_history">Trip History</option>
+              </select>
             </div>
-          )}
 
-          <button 
-            type="submit"
-            disabled={isAddingMemory}
-            className="w-full bg-[#0058bc] hover:bg-opacity-90 text-white rounded-xl py-3.5 text-[14px] font-bold transition-all cursor-pointer disabled:opacity-50"
-          >
-            {isAddingMemory ? "Persisting Memory..." : "Save Preference Memory"}
-          </button>
-        </form>
+            <div>
+              <label className="text-[12px] font-bold uppercase tracking-wider text-on-surface-variant block mb-2">Details Context</label>
+              <textarea 
+                className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl p-3 text-[14px] text-on-surface placeholder-outline focus:outline-none focus:border-primary h-32 resize-none"
+                placeholder="Enter preferences (e.g. Loves taking trains, prefers boutique hotels with pool access)..."
+                value={memoryContent}
+                onChange={(e) => setMemoryContent(e.target.value)}
+                required
+                disabled={isAddingMemory}
+              />
+            </div>
+
+            {memoryError && (
+              <div className="bg-error-container text-on-error-container text-[12px] p-3 rounded-lg border border-error">
+                {memoryError}
+              </div>
+            )}
+
+            <button 
+              type="submit"
+              disabled={isAddingMemory}
+              className="w-full bg-primary hover:bg-opacity-90 text-on-primary rounded-xl py-3.5 text-[14px] font-bold transition-all cursor-pointer disabled:opacity-50"
+            >
+              {isAddingMemory ? "Persisting Memory..." : "Save Preference Memory"}
+            </button>
+          </form>
+        </div>
+
+        {/* Global Language Settings Card */}
+        <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm">
+          <h3 className="text-[18px] font-bold text-on-surface mb-3 flex items-center gap-2 font-heading">
+            <span className="material-symbols-outlined text-primary">language</span> Global Language Settings
+          </h3>
+          <p className="text-[12px] text-on-surface-variant mb-4 leading-relaxed">
+            Configure your preferred reading, guide translation, signs, and local helper languages.
+          </p>
+          <LanguageSelector embeddedOnly={true} />
+        </div>
       </div>
 
       {/* List memories & search */}
       <div className="lg:col-span-2 space-y-6">
         {/* Semantic search memory bar */}
-        <div className="bg-white border border-[#eeedf3] rounded-2xl p-6 shadow-sm">
-          <h4 className="text-[14px] font-bold text-[#414755] uppercase tracking-wider mb-4">Semantic Search User Memories</h4>
+        <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm">
+          <h4 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-4 font-heading">Semantic Search User Memories</h4>
           <form onSubmit={handleSearchMemory} className="flex gap-3">
             <input 
               type="text"
-              className="flex-grow bg-[#f4f3f8] border border-[#eeedf3] rounded-xl p-3.5 text-[14px] focus:outline-none"
+              className="flex-grow bg-surface-container-low border border-surface-variant/20 rounded-xl p-3.5 text-[14px] text-on-surface placeholder-outline focus:outline-none focus:ring-1 focus:ring-primary"
               placeholder="Semantic search (e.g. peaceful traditional temples, resort amenities, luxury budgets)..."
               value={memorySearchQuery}
               onChange={(e) => setMemorySearchQuery(e.target.value)}
             />
             <button 
               type="submit"
-              className="bg-[#0058bc] hover:bg-opacity-90 text-white px-6 rounded-xl text-[14px] font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+              className="bg-primary hover:bg-opacity-90 text-on-primary px-6 rounded-xl text-[14px] font-bold transition-all flex items-center gap-1.5 cursor-pointer"
             >
               {isSearchingMemory ? "Searching..." : "Search"}
               <span className="material-symbols-outlined text-[18px]">search</span>
             </button>
           </form>
           {memorySearchQuery && (
-            <div className="mt-3 flex justify-between">
-              <span className="text-[11px] text-[#414755]">Showing semantic scores based on cosine vector matching</span>
-              <button onClick={() => { setMemorySearchQuery(''); loadMemories(); }} className="text-[11px] text-[#0058bc] underline">Clear Search</button>
+            <div className="mt-3 flex justify-between items-center text-[11px]">
+              <span className="text-on-surface-variant">Showing semantic scores based on cosine vector matching</span>
+              <button onClick={() => { setMemorySearchQuery(''); loadMemories(); }} className="text-primary underline cursor-pointer">Clear Search</button>
             </div>
           )}
         </div>
 
         {/* Memory list */}
-        <div className="bg-white border border-[#eeedf3] rounded-2xl p-6 shadow-sm">
-          <h4 className="text-[14px] font-bold text-[#414755] uppercase tracking-wider mb-6">User Memory List</h4>
+        <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm">
+          <h4 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-6 font-heading">User Memory List</h4>
           {memories.length > 0 ? (
             <div className="space-y-4">
               {memories.map((mem) => (
-                <div key={mem.id} className="p-4 rounded-xl bg-[#f4f3f8] border border-[#eeedf3] relative">
+                <div key={mem.id} className="p-4 rounded-xl bg-surface-container-low border border-surface-variant/20 relative">
                   <div className="flex justify-between items-start mb-2">
-                    <span className="bg-[#d8e2ff] text-[#001a41] text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded">
+                    <span className="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded">
                       {mem.category.replace("_", " ")}
                     </span>
                     {mem.score !== undefined && (
-                      <span className="text-[11px] text-[#0058bc] font-bold bg-white border border-[#eeedf3] px-2 py-0.5 rounded">
+                      <span className="text-[11px] text-primary font-bold bg-surface-container-lowest border border-surface-variant/20 px-2 py-0.5 rounded">
                         Relevance: {mem.score.toFixed(3)}
                       </span>
                     )}
                   </div>
-                  <p className="text-[14px] font-medium text-[#1a1b1f]">{mem.content}</p>
-                  <div className="text-[10px] text-[#414755] mt-3">
+                  <p className="text-[14px] font-medium text-on-surface">{mem.content}</p>
+                  <div className="text-[10px] text-on-surface-variant mt-3">
                     Persisted: {new Date(mem.created_at).toLocaleString()}
                   </div>
                 </div>
@@ -209,8 +224,8 @@ export default function MemoryManager({ user_id }: MemoryManagerProps) {
             </div>
           ) : (
             <div className="text-center py-12 flex flex-col items-center justify-center">
-              <span className="material-symbols-outlined text-[36px] text-[#717786] mb-3">database</span>
-              <p className="text-[14px] text-[#414755]">No personalization preference records saved yet.</p>
+              <span className="material-symbols-outlined text-[36px] text-outline mb-3">database</span>
+              <p className="text-[14px] text-on-surface-variant">No personalization preference records saved yet.</p>
             </div>
           )}
         </div>

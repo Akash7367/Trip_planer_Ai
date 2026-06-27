@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: trip_planner
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -30,7 +30,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password123
       - POSTGRES_DB=trip_planner
-      - POSTGRES_PORT=5432
+      - POSTGRES_PORT=5433
       - BACKEND_CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
     depends_on:
       db:

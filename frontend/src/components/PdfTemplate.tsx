@@ -10,16 +10,45 @@ interface PdfTemplateProps {
 export default function PdfTemplate({ planResult, destination, days, travelers }: PdfTemplateProps) {
   if (!planResult) return null;
 
-  // Extract variables safely
-  const {
-    executive_summary = '',
-    weather_analysis = { suitability_score: 90, temperature: '22°C', rain_probability: '10%', warnings: [] },
-    hotel_recommendation = null,
-    transport_recommendation = null,
-    budget_summary = { accommodation_cost: 0, travel_cost: 0, food_cost: 0, activities_cost: 0, total: 0 },
-    packing_list = [],
-    day_wise_itinerary = { itinerary: [] },
-  } = planResult;
+  // Resolve properties dynamically to support both Traditional and Travel Intelligence schemas
+  const destName = destination || planResult.destination || planResult.trip_summary?.destination || 'Your Destination';
+  
+  const execSummary = planResult.executive_summary || 
+    (planResult.trip_summary 
+      ? `This custom-curated ${planResult.trip_summary.days || planResult.days || days || 5}-day ${planResult.trip_summary.style || 'Adventure & Culture'} itinerary outlines an exceptional journey to ${destName} in ${planResult.trip_summary.preferred_language || 'English'}. Enriching your plan with vlog travel intelligence, safety alerts, and local secrets.` 
+      : 'Your customized travel itinerary.');
+
+  const weather = planResult.weather_analysis || {
+    suitability_score: 95,
+    temperature: '26°C',
+    rain_probability: '15%',
+    warnings: []
+  };
+
+  const hotel = planResult.hotel_recommendation || 
+    (planResult.estimated_budget?.local_prices_index?.hotel_avg 
+      ? { hotel: 'Average Lodging (Vlog Index)', price: planResult.estimated_budget.local_prices_index.hotel_avg, rating: '4.5' }
+      : null);
+
+  const transport = planResult.transport_recommendation || 
+    (planResult.estimated_budget?.local_prices_index?.rickshaw_day 
+      ? { mode: 'Local Transit', cost: planResult.estimated_budget.local_prices_index.rickshaw_day, duration: 'Daily' }
+      : null);
+
+  const rawItinerary = planResult.day_wise_itinerary?.itinerary || planResult.daily_itinerary || [];
+  
+  // Format budget keys safely
+  const budget = planResult.budget_summary || {
+    accommodation_cost: planResult.estimated_budget?.accommodation_cost || '₹4,000',
+    travel_cost: planResult.estimated_budget?.local_prices_index?.rickshaw_day || '₹600',
+    food_cost: '₹1,500',
+    activities_cost: planResult.estimated_budget?.emergency_buffer || '₹2,500',
+    total: planResult.estimated_budget?.accommodation_cost 
+      ? `${parseInt(String(planResult.estimated_budget.accommodation_cost).replace(/[^0-9]/g, '')) + 5000}`
+      : '12,000'
+  };
+
+  const packing_list = planResult.packing_list || [];
 
   // Format date
   const generatedDate = new Date().toLocaleDateString('en-US', {
@@ -75,12 +104,12 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
     return defaultContacts;
   };
 
-  const emergency = getEmergencyContacts(destination);
+  const emergency = getEmergencyContacts(destName);
 
   // Group days into pages of 3 days each
   const daysPerPage = 3;
   const itineraryPages: any[][] = [];
-  const itineraryList = day_wise_itinerary?.itinerary || [];
+  const itineraryList = rawItinerary;
   for (let i = 0; i < itineraryList.length; i += daysPerPage) {
     itineraryPages.push(itineraryList.slice(i, i + daysPerPage));
   }
@@ -110,10 +139,10 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
             Tailored Itinerary Plan
           </span>
           <h1 className="text-[54px] font-extrabold tracking-tight leading-none drop-shadow-md">
-            {destination || "Your Dream Getaway"}
+            {destName || "Your Dream Getaway"}
           </h1>
           <p className="text-[20px] text-blue-100/90 font-medium tracking-wide max-w-lg mt-2">
-            A beautiful {days}-day journey customized for {travelers} traveler{travelers > 1 ? 's' : ''}.
+            A beautiful {days || planResult.days || 5}-day journey customized for {travelers || planResult.travelers || 1} traveler{(travelers || planResult.travelers || 1) > 1 ? 's' : ''}.
           </p>
         </div>
 
@@ -147,7 +176,7 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
             </h2>
             <div className="bg-slate-50 border border-slate-100 rounded-2xl p-6">
               <p className="text-[14px] leading-relaxed text-slate-600 italic">
-                "{executive_summary}"
+                "{execSummary}"
               </p>
             </div>
           </div>
@@ -158,15 +187,15 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Suitability Score</span>
-                <span className="text-[20px] font-extrabold text-[#0058bc]">{weather_analysis.suitability_score}%</span>
+                <span className="text-[20px] font-extrabold text-[#0058bc]">{weather.suitability_score}%</span>
               </div>
               <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Temperature</span>
-                <span className="text-[20px] font-extrabold text-slate-700">{weather_analysis.temperature}</span>
+                <span className="text-[20px] font-extrabold text-slate-700">{weather.temperature}</span>
               </div>
               <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-center">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Rain Chance</span>
-                <span className="text-[20px] font-extrabold text-slate-700">{weather_analysis.rain_probability}</span>
+                <span className="text-[20px] font-extrabold text-slate-700">{weather.rain_probability}</span>
               </div>
             </div>
           </div>
@@ -175,11 +204,11 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
           <div className="grid grid-cols-2 gap-6">
             <div>
               <h3 className="text-[14px] font-bold uppercase tracking-wider text-slate-400 mb-2">Lodging Recommendation</h3>
-              {hotel_recommendation ? (
+              {hotel ? (
                 <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl">
-                  <div className="font-bold text-[14px] text-slate-800">{hotel_recommendation.hotel}</div>
-                  <div className="text-[12px] text-slate-500 mt-1">Rating: ★ {hotel_recommendation.rating}</div>
-                  <div className="text-[14px] font-bold text-[#0058bc] mt-2">${hotel_recommendation.price} / night</div>
+                  <div className="font-bold text-[14px] text-slate-800">{hotel.hotel}</div>
+                  <div className="text-[12px] text-slate-500 mt-1">Rating: ★ {hotel.rating}</div>
+                  <div className="text-[14px] font-bold text-[#0058bc] mt-2">₹{hotel.price} / night</div>
                 </div>
               ) : (
                 <div className="text-[12px] text-slate-400 italic">No accommodation recommendations listed.</div>
@@ -188,11 +217,11 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
 
             <div>
               <h3 className="text-[14px] font-bold uppercase tracking-wider text-slate-400 mb-2">Transit Recommendation</h3>
-              {transport_recommendation ? (
+              {transport ? (
                 <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl">
-                  <div className="font-bold text-[14px] text-slate-800">{transport_recommendation.mode} Transit</div>
-                  <div className="text-[12px] text-slate-500 mt-1">Duration: {transport_recommendation.duration}</div>
-                  <div className="text-[14px] font-bold text-[#0058bc] mt-2">${transport_recommendation.cost} Total Cost</div>
+                  <div className="font-bold text-[14px] text-slate-800">{transport.mode} Transit</div>
+                  <div className="text-[12px] text-slate-500 mt-1">Duration: {transport.duration}</div>
+                  <div className="text-[14px] font-bold text-[#0058bc] mt-2">₹{transport.cost} Total Cost</div>
                 </div>
               ) : (
                 <div className="text-[12px] text-slate-400 italic">No transport recommendations listed.</div>
@@ -209,24 +238,24 @@ export default function PdfTemplate({ planResult, destination, days, travelers }
               <div className="grid grid-cols-4 gap-4">
                 <div className="border-r border-slate-200 pr-2">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Lodging</span>
-                  <div className="text-[16px] font-bold text-slate-800 mt-1">${budget_summary.accommodation_cost}</div>
+                  <div className="text-[16px] font-bold text-slate-800 mt-1">{budget.accommodation_cost}</div>
                 </div>
                 <div className="border-r border-slate-200 pr-2">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Transport</span>
-                  <div className="text-[16px] font-bold text-slate-800 mt-1">${budget_summary.travel_cost}</div>
+                  <div className="text-[16px] font-bold text-slate-800 mt-1">{budget.travel_cost}</div>
                 </div>
                 <div className="border-r border-slate-200 pr-2">
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Food & Bev</span>
-                  <div className="text-[16px] font-bold text-slate-800 mt-1">${budget_summary.food_cost}</div>
+                  <div className="text-[16px] font-bold text-slate-800 mt-1">{budget.food_cost}</div>
                 </div>
                 <div>
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Activities</span>
-                  <div className="text-[16px] font-bold text-slate-800 mt-1">${budget_summary.activities_cost}</div>
+                  <div className="text-[16px] font-bold text-slate-800 mt-1">{budget.activities_cost}</div>
                 </div>
               </div>
               <div className="pt-4 border-t border-slate-200 flex justify-between items-center">
                 <span className="text-[15px] font-bold text-slate-700">Estimated Grand Total:</span>
-                <span className="text-[24px] font-extrabold text-[#0058bc]">${budget_summary.total}</span>
+                <span className="text-[24px] font-extrabold text-[#0058bc]">₹{budget.total}</span>
               </div>
             </div>
           </div>

@@ -41,7 +41,7 @@ def render_email_template(
             <div class="meta">
                 <strong>Trip Details Summary:</strong><br/>
                 • Duration: {itinerary_days} Days<br/>
-                • Total Estimated Budget: ${budget_total} USD
+                • Total Estimated Budget: ₹{budget_total} INR
             </div>
             
             <p>Your PDF trip report, day-wise schedule, and packing checklists are attached to this email.</p>

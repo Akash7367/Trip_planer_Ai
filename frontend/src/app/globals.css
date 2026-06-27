@@ -1,65 +1,65 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: #faf9fe;
-  --color-on-background: #1a1b1f;
-  --color-foreground: #1a1b1f;
-  --font-sans: "Inter", sans-serif;
+  --color-background: #f8f9ff;
+  --color-on-background: #0b1c30;
+  --color-foreground: #0b1c30;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: "Outfit", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
 
-  /* Stitch Custom Palette */
-  --color-primary: #0058bc;
+  /* Stitch Custom Palette - Azure Horizon */
+  --color-primary: #004ac6;
   --color-on-primary: #ffffff;
-  --color-primary-container: #0070eb;
-  --color-on-primary-container: #fefcff;
-  --color-secondary: #885200;
+  --color-primary-container: #2563eb;
+  --color-on-primary-container: #eeefff;
+  --color-secondary: #006591;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #fd9d06;
-  --color-on-secondary-container: #653c00;
-  --color-tertiary: #b31e28;
+  --color-secondary-container: #39b8fd;
+  --color-on-secondary-container: #004666;
+  --color-tertiary: #ad0033;
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #d6393d;
-  --color-on-tertiary-container: #fffbff;
+  --color-tertiary-container: #d22348;
+  --color-on-tertiary-container: #ffecec;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
-  --color-surface: #faf9fe;
-  --color-on-surface: #1a1b1f;
-  --color-surface-dim: #dad9df;
-  --color-surface-bright: #faf9fe;
+  --color-surface: #f8f9ff;
+  --color-on-surface: #0b1c30;
+  --color-surface-dim: #cbdbf5;
+  --color-surface-bright: #f8f9ff;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f4f3f8;
-  --color-surface-container: #eeedf3;
-  --color-surface-container-high: #e9e7ed;
-  --color-surface-container-highest: #e3e2e7;
-  --color-on-surface-variant: #414755;
-  --color-outline: #717786;
-  --color-outline-variant: #c1c6d7;
-  --color-primary-fixed: #d8e2ff;
-  --color-primary-fixed-dim: #adc6ff;
-  --color-on-primary-fixed: #001a41;
-  --color-on-primary-fixed-variant: #004493;
-  --color-secondary-fixed: #ffddbb;
-  --color-secondary-fixed-dim: #ffb868;
-  --color-on-secondary-fixed: #2b1700;
-  --color-on-secondary-fixed-variant: #673d00;
-  --color-tertiary-fixed: #ffdad7;
-  --color-tertiary-fixed-dim: #ffb3af;
-  --color-on-tertiary-fixed: #410005;
-  --color-on-tertiary-fixed-variant: #930016;
-  --color-surface-variant: #e3e2e7;
-  --color-surface-tint: #005bc1;
-  --color-inverse-surface: #2f3034;
-  --color-inverse-on-surface: #f1f0f5;
-  --color-inverse-primary: #adc6ff;
+  --color-surface-container-low: #eff4ff;
+  --color-surface-container: #e5eeff;
+  --color-surface-container-high: #dce9ff;
+  --color-surface-container-highest: #d3e4fe;
+  --color-on-surface-variant: #434655;
+  --color-outline: #737686;
+  --color-outline-variant: #c3c6d7;
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+  --color-on-primary-fixed: #00174b;
+  --color-on-primary-fixed-variant: #003ea8;
+  --color-secondary-fixed: #c9e6ff;
+  --color-secondary-fixed-dim: #89ceff;
+  --color-on-secondary-fixed: #001e2f;
+  --color-on-secondary-fixed-variant: #004c6e;
+  --color-tertiary-fixed: #ffdadb;
+  --color-tertiary-fixed-dim: #ffb2b7;
+  --color-on-tertiary-fixed: #40000d;
+  --color-on-tertiary-fixed-variant: #92002a;
+  --color-surface-variant: #d3e4fe;
+  --color-surface-tint: #0053db;
+  --color-inverse-surface: #213145;
+  --color-inverse-on-surface: #eaf1ff;
+  --color-inverse-primary: #b4c5ff;
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -70,24 +70,24 @@
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  --spacing-margin-desktop: 64px;
-  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 80px;
+  --spacing-margin-mobile: 16px;
   --spacing-unit: 8px;
   --spacing-gutter: 24px;
   --spacing-container-max: 1280px;
 
-  --font-body-lg: "Inter", sans-serif;
-  --font-body-sm: "Inter", sans-serif;
-  --font-headline-sm: "Outfit", sans-serif;
-  --font-body-md: "Inter", sans-serif;
-  --font-display-lg: "Outfit", sans-serif;
-  --font-headline-md: "Outfit", sans-serif;
-  --font-label-md: "Inter", sans-serif;
-  --font-display-lg-mobile: "Outfit", sans-serif;
+  --font-body-lg: "Plus Jakarta Sans", sans-serif;
+  --font-body-sm: "Plus Jakarta Sans", sans-serif;
+  --font-headline-sm: "Plus Jakarta Sans", sans-serif;
+  --font-body-md: "Plus Jakarta Sans", sans-serif;
+  --font-display-lg: "Plus Jakarta Sans", sans-serif;
+  --font-headline-md: "Plus Jakarta Sans", sans-serif;
+  --font-label-md: "Plus Jakarta Sans", sans-serif;
+  --font-display-lg-mobile: "Plus Jakarta Sans", sans-serif;
 }
 
 @utility font-body-lg {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-body-lg {
   font-size: 18px;
@@ -95,7 +95,7 @@
   font-weight: 400;
 }
 @utility font-body-sm {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-body-sm {
   font-size: 14px;
@@ -103,7 +103,7 @@
   font-weight: 400;
 }
 @utility font-headline-sm {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-headline-sm {
   font-size: 20px;
@@ -111,7 +111,7 @@
   font-weight: 600;
 }
 @utility font-body-md {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-body-md {
   font-size: 16px;
@@ -119,7 +119,7 @@
   font-weight: 400;
 }
 @utility font-display-lg {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-display-lg {
   font-size: 48px;
@@ -128,7 +128,7 @@
   font-weight: 700;
 }
 @utility font-headline-md {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-headline-md {
   font-size: 24px;
@@ -136,7 +136,7 @@
   font-weight: 600;
 }
 @utility font-label-md {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-label-md {
   font-size: 12px;
@@ -145,7 +145,7 @@
   font-weight: 600;
 }
 @utility font-display-lg-mobile {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 @utility text-display-lg-mobile {
   font-size: 32px;
@@ -246,6 +246,54 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Stitch Custom Dark Palette - Azure Horizon */
+  --color-background: #0b1c30;
+  --color-on-background: #f8f9ff;
+  --color-surface: #0b1c30;
+  --color-on-surface: #f8f9ff;
+  --color-surface-dim: #213145;
+  --color-surface-bright: #0b1c30;
+  --color-surface-container-lowest: #050b13;
+  --color-surface-container-low: #0f233a;
+  --color-surface-container: #172d47;
+  --color-surface-container-high: #213a57;
+  --color-surface-container-highest: #2c496c;
+  
+  --color-on-surface-variant: #c3c6d7;
+  --color-outline: #8d90a0;
+  --color-outline-variant: #434655;
+  --color-surface-variant: #434655;
+  
+  --color-primary: #b4c5ff;
+  --color-on-primary: #002e86;
+  --color-primary-container: #003ea8;
+  --color-on-primary-container: #eeefff;
+  
+  --color-secondary: #89ceff;
+  --color-on-secondary: #00344d;
+  --color-secondary-container: #004c6e;
+  --color-on-secondary-container: #c9e6ff;
+  
+  --color-tertiary: #ffb2b7;
+  --color-on-tertiary: #680016;
+  --color-tertiary-container: #92002a;
+  --color-on-tertiary-container: #ffdadb;
+}
+
+.dark .glass-panel {
+  background: rgba(21, 22, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.dark .glass-card {
+  background: rgba(21, 22, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Global Transition for Theme Switching */
+body, nav, main, footer, header, section, p, h1, h2, h3, h4, h5, h6, span, button, input {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 @layer base {

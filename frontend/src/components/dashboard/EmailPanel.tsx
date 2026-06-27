@@ -59,9 +59,9 @@ export default function EmailPanel({ tripId, onSaveFirst }: EmailPanelProps) {
   };
 
   return (
-    <div className="bg-white border border-[#eeedf3] rounded-2xl p-6 shadow-sm">
-      <h4 className="text-[14px] font-bold text-[#414755] uppercase tracking-wider mb-3">Email Delivery</h4>
-      <p className="text-[12px] text-slate-500 mb-4">
+    <div className="bg-surface-container-lowest border border-surface-variant/30 rounded-2xl p-6 shadow-sm text-left">
+      <h4 className="text-[14px] font-bold text-on-surface-variant uppercase tracking-wider mb-3 font-heading">Email Delivery</h4>
+      <p className="text-[12px] text-on-surface-variant/85 mb-4">
         Deliver trip HTML/PDF confirmation and full budget/itinerary breakdown directly to your inbox.
       </p>
       <form onSubmit={handleSend} className="space-y-3">
@@ -72,25 +72,25 @@ export default function EmailPanel({ tripId, onSaveFirst }: EmailPanelProps) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter recipient email..."
             required
-            className="flex-grow bg-[#f4f3f8] border border-[#eeedf3] rounded-xl px-4 py-2.5 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#0058bc]"
+            className="flex-grow bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface placeholder-outline focus:outline-none focus:ring-1 focus:ring-primary"
           />
           <button
             type="submit"
             disabled={isSending}
-            className="bg-[#0058bc] text-white px-5 py-2.5 rounded-xl text-[13px] font-bold hover:bg-opacity-95 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            className="bg-primary text-on-primary px-5 py-2.5 rounded-xl text-[13px] font-bold hover:bg-opacity-95 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
           >
             <span className="material-symbols-outlined text-[18px]">send</span>
             {isSending ? 'Sending...' : 'Send'}
           </button>
         </div>
         {success && (
-          <p className="text-[12px] text-emerald-600 font-medium flex items-center gap-1">
+          <p className="text-[12px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">check_circle</span>
             Trip plan successfully delivered via email!
           </p>
         )}
         {error && (
-          <p className="text-[12px] text-[#ba1a1a] font-medium flex items-center gap-1">
+          <p className="text-[12px] text-error font-medium flex items-center gap-1">
             <span className="material-symbols-outlined text-[16px]">error</span>
             {error}
           </p>

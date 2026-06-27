@@ -9,6 +9,9 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,8 +19,13 @@ export default function RegisterPage() {
     e.preventDefault();
     setError('');
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
       return;
     }
 
@@ -41,6 +49,17 @@ export default function RegisterPage() {
       {/* Background gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-950/20 via-slate-950 to-slate-950 pointer-events-none z-0" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none z-0" />
+
+      {/* Back Button */}
+      <div className="w-full max-w-md mb-4 z-10">
+        <Link 
+          href="/" 
+          className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm font-medium transition-colors"
+        >
+          <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+          Back to Home
+        </Link>
+      </div>
 
       {/* Card */}
       <div className="w-full max-w-md bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl relative z-10">
@@ -89,14 +108,48 @@ export default function RegisterPage() {
 
           <div>
             <label className="block text-slate-300 text-xs font-semibold uppercase tracking-wider mb-2">Password</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/20 transition-all text-sm"
-              placeholder="At least 6 characters"
-              required
-            />
+            <div className="relative">
+              <input 
+                type={showPassword ? 'text' : 'password'} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-4 pr-11 py-3 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/20 transition-all text-sm"
+                placeholder="At least 6 characters"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200 focus:outline-none cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[19px]">
+                  {showPassword ? 'visibility_off' : 'visibility'}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-slate-300 text-xs font-semibold uppercase tracking-wider mb-2">Confirm Password</label>
+            <div className="relative">
+              <input 
+                type={showConfirmPassword ? 'text' : 'password'} 
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-4 pr-11 py-3 text-slate-100 placeholder-slate-600 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/20 transition-all text-sm"
+                placeholder="Confirm password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-200 focus:outline-none cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[19px]">
+                  {showConfirmPassword ? 'visibility_off' : 'visibility'}
+                </span>
+              </button>
+            </div>
           </div>
 
           <button 

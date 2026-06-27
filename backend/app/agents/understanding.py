@@ -35,24 +35,14 @@ def parse_trip_request(query: str) -> TripRequirements:
         except Exception as e:
             logger.error(f"Gemini structured parse failed, falling back: {str(e)}")
 
-    # 2. Attempt OpenAI structured output
+    # 2. Attempt OpenAI/Groq structured output
     if settings.OPENAI_API_KEY:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
-            
+            from app.core.llm import generate_structured_output
             prompt = f"Extract trip requirements from this query: \"{query}\""
-            
-            response = client.beta.chat.completions.parse(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
-                response_format=TripRequirements
-            )
-            return response.choices[0].message.parsed
+            return generate_structured_output(prompt, TripRequirements)
         except Exception as e:
-            logger.error(f"OpenAI structured parse failed, falling back: {str(e)}")
+            logger.error(f"OpenAI/Groq structured parse failed, falling back: {str(e)}")
 
     # 3. Rule-based Fallback Extraction
     logger.info("Executing rule-based fallback parser.")

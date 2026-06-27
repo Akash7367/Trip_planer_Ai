@@ -424,6 +424,25 @@ Your approach to replanning:
 
 **Tool Usage:** All domain tools (selectively — only replan affected areas), `save_user_memory`
 
+
+---
+
+## 3.10 Travel Vlog Intelligence Agent Network
+
+**Position in Graph:** Secondary workflow graph (LangGraph) initiated for real-time travel vlog transcription and local secrets extraction.
+
+**Package Folder structure:** `backend/app/agents/travel_intelligence/`
+
+**Key Agent Roles in the Network:**
+1. **Planner Agent** (`nodes/planner.py`): Parses user queries into structured destinations, languages, and traveler profiles.
+2. **YouTube Search Agent** (`nodes/youtube_search.py`): Crawls live YouTube travel vlogs for high-density guides, with LLM-backed search fallbacks.
+3. **Transcript Agent** (`nodes/transcript.py`): Downloads video captions, filters advertisements/sponsors, and builds travel monologues if subtitles are unavailable.
+4. **Translation Agent** (`nodes/translation.py`): Translates subtitles into user's target language while preserving proper nouns, pricing, and locations.
+5. **Knowledge Agent** (`nodes/knowledge.py`): Extracts verified hotels, local food stalls, street-level costs, transit tips, and local phrases.
+6. **Verification Agent** (`nodes/verification.py`): Cross-references local insight points and computes confidence levels.
+7. **Itinerary Node** (`nodes/itinerary.py`): Compiles day-wise itineraries in target language citing specific vlog recommendations.
+8. **Language Personalization Agent** (`nodes/personalization.py`): Localizes final JSON output payloads and dynamically scales budget estimates (Budget, Moderate, Luxury tiers).
+
 ---
 
 ## 4. Agent Execution Order

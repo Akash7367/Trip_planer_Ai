@@ -75,8 +75,9 @@ def compile_final_plan(
         f"{days}-day trip to {dest} for {people} travelers. "
         f"Transport selected: {transport.mode if transport else 'None'}. "
         f"Hotel: {accommodation.hotel if accommodation else 'None'}. "
-        f"Total estimated budget: {budget.total} USD. "
-        f"Weather expected: {weather.temperature} with suitability score {weather.suitability_score}."
+        f"Total estimated budget: {budget.total} INR. "
+        f"Weather expected: {weather.temperature} with suitability score {weather.suitability_score}.\n"
+        f"IMPORTANT: Refer to the total budget and costs in Indian Rupees (INR, ₹) instead of USD or dollars. Use '₹' or 'INR' when mentioning prices."
     )
     
     if settings.GEMINI_API_KEY:
@@ -91,16 +92,16 @@ def compile_final_plan(
             
     if not exec_summary and settings.OPENAI_API_KEY:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
+            from app.core.llm import get_openai_client, get_model_name
+            client = get_openai_client()
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model=get_model_name(),
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=150
             )
             exec_summary = response.choices[0].message.content.strip()
         except Exception as e:
-            logger.error(f"OpenAI planner summary failed, falling back: {str(e)}")
+            logger.error(f"OpenAI/Groq planner summary failed, falling back: {str(e)}")
             
     # Fallback rule-based summary
     if not exec_summary:
@@ -111,7 +112,7 @@ def compile_final_plan(
             f"This custom-curated {days}-day itinerary outlines an exceptional journey to {dest} for {people} "
             f"traveler(s){style}. You will be {stay_desc} {transit_desc}, enjoying an optimal weather suitability "
             f"score of {weather.suitability_score}% ({weather.temperature} avg). The complete schedule is optimized "
-            f"comfortably within your financial target of {budget.total}."
+            f"comfortably within your financial target of ₹{budget.total}."
         )
 
     return FinalTripPlan(

@@ -20,7 +20,7 @@ class ErrorHandlingMiddleware(BaseHTTPMiddleware):
             logger.error(traceback.format_exc())
             
             # Return a structured JSON response for unhandled errors
-            return JSONResponse(
+            response = JSONResponse(
                 status_code=500,
                 content={
                     "status": "error",
@@ -28,3 +28,8 @@ class ErrorHandlingMiddleware(BaseHTTPMiddleware):
                     "details": str(exc) if not request.app.debug else traceback.format_exc().split("\n")
                 }
             )
+            response.headers["Access-Control-Allow-Origin"] = request.headers.get("origin", "*")
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            response.headers["Access-Control-Allow-Methods"] = "*"
+            response.headers["Access-Control-Allow-Headers"] = "*"
+            return response

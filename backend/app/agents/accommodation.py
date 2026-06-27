@@ -49,7 +49,11 @@ def recommend_accommodation(req: AccommodationRequest) -> List[AccommodationOpti
             genai.configure(api_key=settings.GEMINI_API_KEY)
             model = genai.GenerativeModel("gemini-1.5-flash")
             
-            prompt = f"Recommend accommodations for: {req.model_dump_json()}"
+            prompt = (
+                f"Recommend accommodations for: {req.model_dump_json()}.\n"
+                f"IMPORTANT: You MUST plan, calculate, and provide all prices in Indian Rupees (INR, ₹). "
+                f"Ensure the price values are realistic Indian Rupee amounts for hotels (e.g., between ₹1500 and ₹25000+ per night)."
+            )
             response = model.generate_content(
                 prompt,
                 generation_config=genai.GenerationConfig(
@@ -64,20 +68,16 @@ def recommend_accommodation(req: AccommodationRequest) -> List[AccommodationOpti
 
     if settings.OPENAI_API_KEY:
         try:
-            from openai import OpenAI
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
-            
-            prompt = f"Recommend accommodations for: {req.model_dump_json()}"
-            response = client.beta.chat.completions.parse(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "user", "content": prompt}
-                ],
-                response_format=AccommodationResponse
+            from app.core.llm import generate_structured_output
+            prompt = (
+                f"Recommend accommodations for: {req.model_dump_json()}.\n"
+                f"IMPORTANT: You MUST plan, calculate, and provide all prices in Indian Rupees (INR, ₹). "
+                f"Ensure the price values are realistic Indian Rupee amounts for hotels (e.g., between ₹1500 and ₹25000+ per night)."
             )
-            return response.choices[0].message.parsed.accommodations
+            result = generate_structured_output(prompt, AccommodationResponse)
+            return result.accommodations
         except Exception as e:
-            logger.error(f"OpenAI accommodation recommendation failed, falling back: {str(e)}")
+            logger.error(f"OpenAI/Groq accommodation recommendation failed, falling back: {str(e)}")
 
     # Heuristic fallback matching using MCP tool
     logger.info("Executing rule-based accommodation recommendation.")

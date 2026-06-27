@@ -8,7 +8,12 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     
     # CORS
-    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    BACKEND_CORS_ORIGINS: List[str] = [
+        "http://localhost:3000", 
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001"
+    ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
@@ -37,13 +42,19 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str | None = Field(default=None, validation_alias="GEMINI_API_KEY")
     OPENAI_API_KEY: str | None = Field(default=None, validation_alias="OPENAI_API_KEY")
 
+    @property
+    def IS_GROQ(self) -> bool:
+        return bool(self.OPENAI_API_KEY and self.OPENAI_API_KEY.startswith("gsk_"))
+
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
     def assemble_db_connection(cls, v: str | None, info) -> str:
         if isinstance(v, str) and v:
             return v
         data = info.data
-        return f"postgresql://{data.get('POSTGRES_USER')}:{data.get('POSTGRES_PASSWORD')}@{data.get('POSTGRES_SERVER')}:{data.get('POSTGRES_PORT')}/{data.get('POSTGRES_DB')}"
+        import urllib.parse
+        encoded_pwd = urllib.parse.quote_plus(data.get('POSTGRES_PASSWORD', ''))
+        return f"postgresql://{data.get('POSTGRES_USER')}:{encoded_pwd}@{data.get('POSTGRES_SERVER')}:{data.get('POSTGRES_PORT')}/{data.get('POSTGRES_DB')}"
 
     model_config = SettingsConfigDict(
         case_sensitive=True,
