@@ -98,7 +98,7 @@ export default function LocalLanguageHelper({ destination = 'Maharashtra' }: Loc
   // Quick emergency phrases
   const emergencyList = useMemo(() => {
     const lang = localLangInfo.code;
-    const list = {
+    const list: Record<string, { label: string; native: string; roman: string; }[]> = {
       mr: [
         { label: 'Call Police', native: 'पोलिसांना बोलवा!', roman: 'Polisanna bolva!' },
         { label: 'Need a Doctor', native: 'मला डॉक्टरांची गरज आहे.', roman: 'Mala doctoranchi garaj aahe.' },

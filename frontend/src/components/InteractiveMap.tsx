@@ -116,6 +116,7 @@ export default function InteractiveMap({ destination }: InteractiveMapProps) {
       }
 
       // Initialize map container
+      if (!mapRef.current) return;
       const map = L.map(mapRef.current).setView([coords.lat, coords.lon], 11);
       mapInstanceRef.current = map;
 

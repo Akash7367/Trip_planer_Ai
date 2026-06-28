@@ -3,11 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface VoicePlannerProps {
-  user_id: number;
+  user_id: string | number;
   onPlanResult: (plan: any) => void;
   onPlanningError: (err: string | null) => void;
   onLoadingStatus: (loading: boolean) => void;
-  onSaveTripTrigger?: () => Promise<number | null>;
+  onSaveTripTrigger?: () => Promise<any>;
 }
 
 export default function VoicePlanner({

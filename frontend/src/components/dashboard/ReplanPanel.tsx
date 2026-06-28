@@ -8,9 +8,10 @@ interface ReplanPanelProps {
   tripId: number | null;
   onSaveFirst: () => Promise<number | null>;
   onPlanUpdated: (updatedPlanData: any, newDestination?: string) => void;
+  disabled?: boolean;
 }
 
-export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: ReplanPanelProps) {
+export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated, disabled = false }: ReplanPanelProps) {
   const [replanType, setReplanType] = useState<'budget' | 'weather' | 'itinerary'>('budget');
   const [overrideValue, setOverrideValue] = useState('');
   const [isReplanning, setIsReplanning] = useState(false);
@@ -101,7 +102,8 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
                 setReplanType(e.target.value as any);
                 setOverrideValue('');
               }}
-              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary"
+              disabled={disabled || isReplanning}
+              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
             >
               <option value="budget">Budget Changes</option>
               <option value="weather">Change Destination / Weather</option>
@@ -124,14 +126,15 @@ export default function ReplanPanel({ tripId, onSaveFirst, onPlanUpdated }: Repl
                 replanType === 'weather' ? 'e.g. London' : 'e.g. Eiffel Tower'
               }
               required
-              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary"
+              disabled={disabled || isReplanning}
+              className="w-full bg-surface-container-low border border-surface-variant/20 rounded-xl px-4 py-2.5 text-[14px] text-on-surface focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
             />
           </div>
         </div>
 
         <button
           type="submit"
-          disabled={isReplanning}
+          disabled={disabled || isReplanning}
           className="w-full bg-primary text-on-primary py-2.5 rounded-xl text-[13px] font-bold hover:bg-opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
         >
           <span className="material-symbols-outlined text-[18px]">autorenew</span>

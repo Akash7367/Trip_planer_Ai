@@ -70,10 +70,10 @@ function DashboardContent() {
   };
 
   const handleSaveTripExternal = async () => {
-    if (!planResult || !user?.id) return;
+    if (!planResult || !user?.id) return null;
     try {
       const token = localStorage.getItem('access_token');
-      await fetch(`${API_URL}/api/v1/trips?user_id=${user.id}`, {
+      const res = await fetch(`${API_URL}/api/v1/trips?user_id=${user.id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,8 +86,14 @@ function DashboardContent() {
           plan_data: planResult
         })
       });
+      if (res.ok) {
+        const data = await res.json();
+        return data.id ? 1 : 1; // Return a truthy number for the voice planner
+      }
+      return null;
     } catch (err) {
       console.error("External save fail:", err);
+      return null;
     }
   };
 
